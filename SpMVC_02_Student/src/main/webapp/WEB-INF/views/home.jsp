@@ -7,9 +7,45 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+header {
+	background: #01DF74;
+	margin:0;
+	padding:1rem;
+	color: white;
+}
+
+header h3 {
+	font-size: 2rem;
+}
+
+ol {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	background-color: #33ddff;
+}
+
+ol a {
+	display: block;
+	text-decoration: none;
+	padding : 14px 16px;
+}
+
+ol a:hover {
+	background-color: #ddd;
+	color : blue;
+	border-bottom: 3px solid blue;
+}
+
+</style>
 </head>
 <body>
-<h3>학생정보 관리</h3>
+<header>
+	<h3>학생정보 관리</h3>
+</header>
+
 <!-- ul : unorderd List 약자 : 순서가 없는 List, 머릿글이 기호-->
 <!-- ol : orderd List : 순서가 있는 List, 머릿글이 숫자 -->
 <ol>
