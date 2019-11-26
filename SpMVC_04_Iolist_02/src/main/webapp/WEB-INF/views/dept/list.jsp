@@ -8,12 +8,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>□□□ 나의 JSP 페이지 □□□</title>
-<link rel="stylesheet" 
-	href="${rootPath}/css/dept-main.css?ver=20191125001"
-	type="text/css" >
-<link rel="stylesheet"	
-	href="${rootPath}/css/list-table.css?ver=20191125001"
-	type="text/css">
+<%@ include file="/WEB-INF/views/include/include-css.jspf" %>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 <style>
 
 p#insert {
@@ -21,12 +18,27 @@ p#insert {
 }
 
 </style>	
+<script>
+$(function(){
+
+	$(".content-body").click(function(e){
+		
+		// id에 설정된 값을 가져오기
+		let d_code = $(this).attr("id")
+		
+		// alert(d_code)
+		// 현재 페이지를 /dept/view를 전환하라
+		// 주소창에 /dept/view를 입력하여 서버에 전송하라
+		// d_code 변수에 값을 실어서 보내라
+		document.location.href = "${rootPath}/dept/view?d_code=" + d_code
+			
+	})
+})
+
+</script>
 </head>
 <body>
-<header>
-	<h3>거래처정보관리</h3>
-</header>
-<%@ include file="/WEB-INF/views/include/include-nav.jspf" %>
+<%@ include file="/WEB-INF/views/include/include-dept-header.jspf" %>
 <section>
 	<article>
 		<p id="insert"><a href="${rootPath}/dept/insert"><button>새로등록</button></a>	
@@ -48,7 +60,7 @@ p#insert {
 				<c:otherwise>
 					<c:forEach items="${DEPTLIST}" var="dto" 
 							varStatus="info">
-						<tr class="content-body">
+						<tr class="content-body" id="${dto.d_code}">
 							<td>${info.count}</td>
 							<td>${dto.d_code}</td>
 							<td>${dto.d_name}</td>
