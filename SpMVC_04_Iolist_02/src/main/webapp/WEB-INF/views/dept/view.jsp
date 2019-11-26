@@ -22,7 +22,7 @@ p#insert {
 $(function(){
 	
 	$(".btn-update").click(function(){
-		document.location.href = "${rootPath}/dept/update?d_code=${DEPT_DTO.d_code}"		
+		document.location.href = "${rootPath}/dept/update?dcode=${DEPT_DTO.d_code}"		
 	})
 	
 	$(".btn-delete").click(function(){

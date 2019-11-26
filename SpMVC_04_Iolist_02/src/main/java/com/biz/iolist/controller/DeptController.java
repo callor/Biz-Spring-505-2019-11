@@ -106,17 +106,17 @@ public class DeptController {
 	}
 
 	@RequestMapping(value="/update",method=RequestMethod.GET)
-	public String update(String d_code, Model model) {
+	public String update(String dcode, Model model) {
 
-		DeptDTO dDTO = dService.findByDCode(d_code);
+		DeptDTO dDTO = dService.findByDCode(dcode);
 		model.addAttribute("DI",dDTO);
 		return "dept/input";
 	}
 
 	@RequestMapping(value="/update",method=RequestMethod.POST)
-	public String update(DeptDTO deptDTO, Model model) {
+	public String update(DeptDTO deptDTO) {
 	
-		log.debug(deptDTO.toString());
+		log.debug("거래처 UPDATE:" + deptDTO.toString());
 		
 		int ret = dService.update(deptDTO);
 		return "redirect:/dept/view?d_code=" + deptDTO.getD_code();
