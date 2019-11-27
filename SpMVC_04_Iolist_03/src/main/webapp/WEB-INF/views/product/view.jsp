@@ -22,17 +22,18 @@ p#insert {
 $(function(){
 	
 	$(".btn-update").click(function(){
-		document.location.href = "${rootPath}/dept/update?id=${DEPT_DTO.d_code}"		
+		document.location.href = "${rootPath}/product/update?id=${PRO_DTO.p_code}"		
 	})
 	
 	$(".btn-delete").click(function(){
 		
-		let msg = "거래처 : ${DEPT_DTO.d_name} \n"
-		msg += "대표 : ${DEPT_DTO.d_ceo} \n"
+		let msg = "상품코드 : ${PRO_DTO.p_code} \n"
+		msg += "상품명 : ${PRO_DTO.p_name} \n"
+		
 		msg += "삭제할까요?" 
 		
 		if(confirm(msg)) {
-			document.location.href = "${rootPath}/dept/delete?id=${DEPT_DTO.d_code}"			
+			document.location.href = "${rootPath}/product/delete?id=${PRO_DTO.p_code}"			
 		}
 	
 	})
@@ -93,18 +94,17 @@ $(function(){
 <section>
 	<table>
 		<tr>
-			<th>거래처코드</th><td>${DEPT_DTO.d_code}</td>
-			<th>거래처명</th><td>${DEPT_DTO.d_name}</td>
+			<th>상품코드</th><td>${PRO_DTO.p_code}</td>
+			<th>상품명</th><td>${PRO_DTO.p_name}</td>
+			<th></th><td></td>
 		</tr>
 		<tr>
-			<th>대표</th><td>${DEPT_DTO.d_ceo}</td>
-			<th>전화번호</th><td>${DEPT_DTO.d_tel}</td>
+			<th>매입단가</th><td>${PRO_DTO.p_iprice}</td>
+			<th>매출단가</th><td>${PRO_DTO.p_oprice}</td>
+			<th>과세</th><td>${PRO_DTO.p_vat}</td>
 		</tr>
-		<tr>
-			<th>주소</th><td colspan="3">${DEPT_DTO.d_addr}</td>
-		</tr>
-		<tr>
-			<td colspan="4">
+			<tr>
+			<td colspan="6">
 				<div class="btn-box">
 					<button class="btn-update">수정</button>
 					<button class="btn-delete">삭제</button>
