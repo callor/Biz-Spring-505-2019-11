@@ -7,5 +7,8 @@
 	<typeAliases>
 		<typeAlias type="com.biz.iolist.domain.DeptDTO"  alias="DeptDTO"/>
 		<typeAlias type="com.biz.iolist.domain.ProductDTO"  alias="ProductDTO"/>
+		
+		<typeAlias type="com.biz.iolist.domain.IolistVO"  alias="IolistVO"/>
+		<typeAlias type="com.biz.iolist.domain.IolistDTO"  alias="IolistDTO"/>
 	</typeAliases>
 </configuration>

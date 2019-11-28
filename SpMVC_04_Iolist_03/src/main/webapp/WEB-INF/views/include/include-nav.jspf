@@ -3,8 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <c:set var="rootPath" value="${pageContext.request.contextPath}"/>
 <nav>
-	<ul>
-		<li><a href="#">매입매출관리</a></li>
+	<ul class="main-menu">
+		<li><a href="${rootPath}/">매입매출관리</a></li>
 		<li><a href="${rootPath}/product/list">상품관리</a></li>
 		<li><a href="${rootPath}/dept/list">거래처관리</a></li>
 		<%

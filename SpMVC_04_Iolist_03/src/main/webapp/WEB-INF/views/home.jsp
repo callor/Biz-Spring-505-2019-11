@@ -12,7 +12,7 @@
 	type="text/css" >
 </head>
 <body>
-<header>
+<header class= "" id="abc" >
 	<h3>매입매출관리</h3>
 </header>
 <%@ include file="/WEB-INF/views/include/include-nav.jspf" %>

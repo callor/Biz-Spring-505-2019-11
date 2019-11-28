@@ -20,7 +20,9 @@ th {
 td, th{
 	
 	padding:8px;
-	vertical-align: top;	
+	vertical-align: top;
+	/* 만약 content가 td의 width보다 작아도 줄바꿈을 하지 마라 */	
+	white-space: nowrap;
 }
 
 tr {
