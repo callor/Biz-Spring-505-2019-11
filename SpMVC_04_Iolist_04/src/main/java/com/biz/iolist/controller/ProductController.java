@@ -18,6 +18,20 @@ public class ProductController {
 	@Autowired
 	ProductService pService;
 	
+	/*
+	 * 상품이름을 전달받아서 해당상품을 검색하여 보여주기
+	 */
+	@RequestMapping(value="/search",method=RequestMethod.GET)
+	public String search(String strText, Model model) {
+		
+		List<ProductDTO> proList 
+			= pService.selectNameSearch(strText);
+		
+		model.addAttribute("PROLIST",proList);
+		return "product/list-body";
+	
+	}
+		
 	@RequestMapping(value="/list",method=RequestMethod.GET)
 	public String list(Model model) {
 		

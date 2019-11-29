@@ -11,6 +11,11 @@
 <%@ include file="/WEB-INF/views/include/include-css.jspf" %>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script>
+	var rootPath = "${pageContext.request.contextPath}"
+</script>
+
 <script src="${rootPath}/js/iolist-input-1.0.js?ver2019-11-30-001"></script>
 
 <style>
