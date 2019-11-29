@@ -20,21 +20,17 @@ p#insert {
 </style>	
 <script>
 $(function(){
-
 	$(".content-body").click(function(e){
 		
 		// id에 설정된 값을 가져오기
 		let id = $(this).attr("id")
 		
-		// alert(d_code)
-		// 현재 페이지를 /dept/view를 전환하라
-		// 주소창에 /dept/view를 입력하여 서버에 전송하라
-		// d_code 변수에 값을 실어서 보내라
-		document.location.href = "${rootPath}/product/view?id=" + id
-			
+		// 현재 페이지를 /iolist/view를 전환하라
+		// 주소창에 /iolist/view를 입력하여 서버에 전송하라
+		// id 변수에 값을 실어서 보내라
+		document.location.href = "${rootPath}/iolist/view?id=" + id
 	})
 })
-
 </script>
 </head>
 <body>

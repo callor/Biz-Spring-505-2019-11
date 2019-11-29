@@ -7,7 +7,54 @@
 	
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+$(function(){
+	
+	$(".content-body").click(function(){
+		
+		// td 들의 목록 추출하기
+		let td = $(this).children()
+		
+		let strDCode = td.eq(1).text()
+		let strDName = td.eq(2).text()
+		let strDCeo = td.eq(3).text()
+
+		// opener.document
+		// 나(검색창)를 열어준 view의 요소에 값을 write하겠다.
+		$(opener.document).find("#io_dcode").val(strDCode)
+
+		// 거래처(대표)
+		$(opener.document).find("#io_dname").text(
+				strDName + "(" + strDCeo + ")"
+		)
+		
+		// 클릭후에 현재 열린 검색창 닫기
+		window.close()
+		
+		// IE 때문에 사용
+		window.open("about:blank","_self").self.close()
+		
+	})
+})
+
+</script>
+<style>
+	div.s-box {
+		width:95%;
+		margin: 0 auto;
+	}
+	
+	div.s-box input {
+		padding:8px;
+		width:100%;
+	}
+</style>	
 <article>
+	<div class="s-box">
+		<form>
+			<input name="strText">		
+		</form>
+	</div>
 	<table>
 		<tr>
 			<th>NO</th>

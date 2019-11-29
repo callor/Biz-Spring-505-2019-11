@@ -16,7 +16,7 @@
 	var rootPath = "${pageContext.request.contextPath}"
 </script>
 
-<script src="${rootPath}/js/iolist-input-1.0.js?ver2019-11-30-001"></script>
+<script src="${rootPath}/js/iolist-input-1.0.js?ver2019-11-30-004"></script>
 
 <style>
 	.in-box {

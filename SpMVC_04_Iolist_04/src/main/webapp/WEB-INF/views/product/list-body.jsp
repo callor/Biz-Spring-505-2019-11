@@ -38,6 +38,13 @@ $(function(){
 			$("#io_price",opener.document).val(strOPrice)
 		}
 		
+		// 수량 * 단가 = 합계 계산하여 붙여넣기
+		let price = $("#io_price",opener.document).val()
+		let qty = $("#io_qty",opener.document).val()
+		$("#io_total",opener.document).val(
+			parseInt(price) * parseInt(qty)		
+		)
+		
 		window.close()
 		// iE 때문에 쓸데없이 쓰는 코드
 		// 창을 닫을까요 물어보지 않기
@@ -47,8 +54,23 @@ $(function(){
 })
 
 </script>	
+<style>
+	div.s-box {
+		width:95%;
+		margin: 0 auto;
+	}
 	
+	div.s-box input {
+		padding:8px;
+		width:100%;
+	}
+</style>
 <article>
+	<div class="s-box">
+		<form>
+			<input name="strText">		
+		</form>
+	</div>
 	<table>
 		<tr>
 			<th>NO</th>

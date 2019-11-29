@@ -96,17 +96,27 @@ public class IolistController {
 		return "redirect:/iolist/list";
 	}
 	
+	/*
+	 * tbl_iolist seq 칼럼은 숫자형인데
+	 * 일단 seq 칼럼으로 조회를 하기위한 쿼리값인 id는
+	 * 문자열로 받는다.
+	 * 혹시 id값이 전송되지 않아서 발생할수 있는
+	 * 400 오류를 방지하기 위함이다.
+	 */
 	@RequestMapping(value="/view",method = RequestMethod.GET)
 	public String view(String id, Model model) {
 		
-		long io_seq = Long.valueOf(id);
-		IolistDTO io_dto = ioService.findBySeq(io_seq);
-		
+		long io_seq = 0;
+		try {
+			io_seq = Long.valueOf(id);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		IolistVO io_dto = ioService.findBySeq(io_seq);
+		model.addAttribute("IO_DTO",io_dto);
 		return "iolist/view";
 		
 	}
-	
-
 	
 }
 
