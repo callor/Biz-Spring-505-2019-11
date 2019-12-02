@@ -1,0 +1,22 @@
+callor@callor.com
+
+1. 자신의 git hub에서 팀프로젝트 fork 하기
+2. git url 복사하여 내 컴퓨터 로컬 폴더에서 clone
+   git clone https://github.com/callor88/TestTeam.git
+
+3. 프로젝트 폴더에서 git bash 열기
+4. 문서 작성
+5. git add 문서이름 : 특정한 파일만 올리기
+   git add .  : 수정된 모든 파일 올리기
+6. git config --local user.name callor88
+   git config --local user.email callor88@naver.com
+7. git commit -m comment
+
+브랜치 분기하기 : 새로운 복제본 작업 공간 만들기
+git branch callor88 : callor88 이라는 이름으로 브랜치 생성
+git checkout callor88 : 작업공간 변경하기
+
+git checkout -b callor88 : callor88이라는 이름으로 브랜치를 만들고
+	작업간을 callor88로 변경하라
+
+	
