@@ -8,5 +8,16 @@
 		<typeAlias 
 			type="com.biz.memo.domain.MemoDTO" 
 			alias="MemoDTO"/>
+			
+		<typeAlias 
+			type="com.biz.memo.domain.HobbyDTO" 
+			alias="HobbyDTO"/>
+		<typeAlias 
+			type="com.biz.memo.domain.UserDTO" 
+			alias="UserDTO"/>
+		<typeAlias 
+			type="com.biz.memo.domain.UserHobbyDTO" 
+			alias="UserHobbyDTO"/>
+			
 	</typeAliases>
 </configuration>	

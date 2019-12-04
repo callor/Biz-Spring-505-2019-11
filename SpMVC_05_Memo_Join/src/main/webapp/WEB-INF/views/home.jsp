@@ -176,7 +176,7 @@ nav ul a {
 		
 		<c:if test="${userDTO == null}">
 			<li><a href="${rootPath}/member/login">로그인</a>
-			<li><a href="${rootPath}/member/join">회원가입</a>
+			<li><a href="${rootPath}/user/join">회원가입</a>
 		</c:if>
 		<c:if test="${userDTO != null && userDTO.u_id != null}">
 			<li><a href="${rootPath}/member/logout">로그아웃</a>

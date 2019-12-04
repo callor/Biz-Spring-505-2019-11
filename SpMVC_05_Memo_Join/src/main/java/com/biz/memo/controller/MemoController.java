@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.biz.memo.domain.CatVO;
 import com.biz.memo.domain.MemoDTO;
 import com.biz.memo.domain.UserDTO;
 import com.biz.memo.service.MemoService;
@@ -112,7 +113,14 @@ public class MemoController {
 		memoDTO.setM_time(st.format(date));
 		memoDTO.setM_auth(userDTO.getU_id());
 		
-		model.addAttribute("CATS",mService.getCats());
+		/*
+		 * 메모작성을 시작할때 자동으로 첫번째 radio를
+		 * 선택한 상태가 되도록 하기
+		 */
+		List<CatVO> cats = mService.getCats();
+		memoDTO.setM_cat(cats.get(0).getCatValue());
+				
+		model.addAttribute("CATS",cats);
 		model.addAttribute("memoDTO",memoDTO);
 		return "insert";
 	
