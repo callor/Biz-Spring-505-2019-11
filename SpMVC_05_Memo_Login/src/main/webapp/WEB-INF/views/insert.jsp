@@ -11,8 +11,8 @@
 */
 %>
 <%@ taglib 
-		uri="http://www.springframework.org/tags/form" 
-		prefix="form" %>
+	uri="http://www.springframework.org/tags/form" 
+	prefix="form" %>
   
 <!DOCTYPE html>
 <html>
@@ -42,7 +42,7 @@
  	
  }
  
- input:focus,textarea:focus {
+ input:focus,textarea:focus,button {
  	border:2px solid blue;
  	outline: none;
  }
@@ -59,7 +59,10 @@
 <fieldset>
 	<legend>메모작성</legend>
 	<form:form modelAttribute="memoDTO"  autocomplete="on"  class="memo-form">
-
+	
+		<input name="m_seq" type="hidden" 
+			value='<c:out value="${memoDTO.m_seq}" default="0"/>'>
+			
 		<form:input path="m_date" 
 				class="in-box" placeholder="작성일자"  /><br/>
 		<form:input path="m_time" 
