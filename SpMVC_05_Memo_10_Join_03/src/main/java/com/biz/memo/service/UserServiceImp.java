@@ -1,9 +1,8 @@
 package com.biz.memo.service;
 
-import java.util.List;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.biz.memo.domain.UserDTO;
@@ -21,6 +20,9 @@ public class UserServiceImp implements UserService {
 
 	@Autowired
 	SqlSession sqlSession;
+	
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
 	
 	UserDao uDao;
 	@Autowired
@@ -41,8 +43,11 @@ public class UserServiceImp implements UserService {
 		} else {
 			userDTO.setU_grade("A");
 		}
+		
+		String cryptText 
+			= passwordEncoder.encode(userDTO.getU_password());
+		userDTO.setU_password(cryptText);
 		return uDao.userInsert(userDTO);
-	
 	}
 
 	@Override
@@ -60,6 +65,7 @@ public class UserServiceImp implements UserService {
 		return false;
 		*/
 		
+		
 		// else가 없어도 되는 코드
 		// if 비교문에서 else가 없어도 되는 코드를 만들수 있으면
 		// 가급적 else 를 없이 사용하자
@@ -76,6 +82,9 @@ public class UserServiceImp implements UserService {
 		// TODO Auto-generated method stub
 		
 		String inU_id = userDTO.getU_id();
+		
+		// 사용자가 로그인하면서 입력한 비번
+		// 평문인 상태의 비번
 		String inU_pass = userDTO.getU_password();
 		
 		// 암호화를 대비한 코드로 작성
@@ -89,11 +98,21 @@ public class UserServiceImp implements UserService {
 		}
 		
 		String sU_id = userRDTO.getU_id();
-		String sU_pass = userRDTO.getU_password();
+		/// String sU_pass = userRDTO.getU_password();
+		
+		// DB table에 저장된 사용자 비번으로
+		// 암호화된 문자열이다.
+		String cryptU_pass = userRDTO.getU_password();
 
 		// 회원id는 존재를 하는데 비번이 틀렸을 경우
 		if(sU_id.equalsIgnoreCase(inU_id) && 
-				sU_pass.equals(inU_pass)) {
+				// sU_pass.equals(inU_pass)) {
+				
+			// Bcrypt로 암호화된 문자열은 equal()등의 method로
+			// matche 되는지 비교가 불가능하고
+			// BCrypt에서 지원하는 matches() method를 사용하여
+			// matche 되는지를 비교해야 한다.
+			passwordEncoder.matches(inU_pass, cryptU_pass)) {
 			
 			/*
 			 * java method에서 객체를 매개변수로 받은 후

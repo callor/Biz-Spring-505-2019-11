@@ -21,11 +21,11 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @Builder
-@ScriptAssert(
-			lang="javascript",
-			script="(_this.u_password == _this.re_password)",
-			reportOn="re_password",
-			message="비밀번호와 확인 비번이 다름!!!")
+// @ScriptAssert(
+//			lang="javascript",
+//			script="(_this.u_password == _this.re_password)",
+//			reportOn="re_password",
+//			message="비밀번호와 확인 비번이 다름!!!")
 public class UserDTO {
 
 	/*
@@ -44,8 +44,8 @@ public class UserDTO {
 	 * 
 	 */
 	
-	@NotNull
-	@NotBlank(message = "공백이면 안되")
+	// @NotNull
+	// @NotBlank(message = "공백이면 안되")
 	@Email(message = "* 이메일형식으로만 써!!!")
 	@Size(min = 5, max=100)
 	private String u_id;
