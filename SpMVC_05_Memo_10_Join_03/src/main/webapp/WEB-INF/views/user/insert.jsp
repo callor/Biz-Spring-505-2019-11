@@ -13,11 +13,59 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>□□□ 나의 JSP 페이지 □□□</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
 <script type="text/javascript">
 $(function(){
+
+	// js 함수는 1급함수다 : 함수 = 객체 = 변수
+	// 새로운 방식, 함수 = 객체
+	// let idcheck = function() {  }
+	
+	// 새창을 열어서 id를 검사하는 코드를 함수로 선언하기
+	// 표준함수 선언 방식
+	function idcheck() {
+		let top = 500 
+		let left = 600 
+			
+		// alert("Enter 입력")
+		let u_id = $("#u_id").val()
+		let status = "toolbar=no,"
+		status += "scrollbars=yes,"
+		status += "resizable=no,"
+		status += "top=500,"
+		status += "left=500,"
+		status += "width=700,"
+		status += "height=400"
+			
+		if(u_id == "") {
+			alert("ID를 입력한 후 Enter")
+			return false
+		}
+			
+		openWin = window.open("${rootPath}/user/idcheck?u_id=" + u_id,
+				"_blank",
+				status)
+			// openWin.moveTo(left,top)
+		
+		
+	}
+	
+	$("#u_id").keypress(function(e){
+		if(e.keyCode == 13) {
+			// 표준, 일반적으로 함수를 호출하는 방법
+			idcheck()	
+		}
+	})
+	
+	// event hander에 함수목록을 등록하는 절차
+	// 이때는 함수 마치 객체처럼 등록이 되기때문에
+	// 함수이름에 ()를 넣지 말아야한다.
+	// 함수방식을 call back 함수 등록이다라고 한다.
+	$("#id_check").click( idcheck )
+	
 	$("#btn-save").click(function(){
 		
-		/*
 		let pass = $("#u_password").val()
 		if(pass == "") {
 			alert("비밀번호를 입력하세요")
@@ -40,7 +88,6 @@ $(function(){
 			$("#u_password").focus()
 			return false
 		}
-		*/
 		
 		let u_name = $("#u_name").val()
 		if(u_name == "") {
@@ -96,6 +143,13 @@ $(function(){
  	color:red;
  }
 
+span#u_id_msg {
+	display: none;
+}
+
+#u_id {
+	width:70%;
+}
 
 </style>
 </head>
@@ -106,13 +160,17 @@ $(function(){
 		<c:if test="${TITLE != null}">${TITLE}</c:if>
 	</legend>
 	<form:form modelAttribute="userDTO"  
-			autocomplete="on"  class="user-form">
+			autocomplete="off"  class="user-form">
 		<div class="in-box-border">
 			<form:input path="u_id" 
 				type="text"
 				class="in-box" 
-				placeholder="사용자 ID를 입력하세요"  /><br/>
-			<form:errors path="u_id" class="in-error"/>
+				placeholder="사용자 ID를 입력하고 Etner..."  />
+			<button type="button" id="id_check">아이디검사</button>
+			<br/>
+			
+			<form:errors path="u_id" class="in-error"/><br/>
+			<span id="u_id_msg"></span>
 		</div>
 		
 		<div class="in-box-border">		
