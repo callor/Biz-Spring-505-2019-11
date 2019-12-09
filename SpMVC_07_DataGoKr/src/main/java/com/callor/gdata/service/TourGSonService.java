@@ -1,4 +1,4 @@
-package com.biz.gdata.service;
+package com.callor.gdata.service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,10 +14,11 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 
-import com.biz.gdata.config.DataGoConfig;
+import com.callor.gdata.config.DataGoConfig;
+import com.google.gson.JsonObject;
 
 @Service
-public class TourService {
+public class TourGSonService {
 
 	public String getQueryString() throws UnsupportedEncodingException {
 
@@ -38,9 +39,8 @@ public class TourService {
 	
 	public JSONArray getData() throws ParseException, IOException {
 		
-		JSONParser jParer = new JSONParser();
-		JSONObject jObject = (JSONObject) jParer.parse(this.getDataString());
-		
+		JSONParser jParser = new JSONParser();
+		JSONObject jObject = (JSONObject) jParser.parse(this.getDataString());
 		
 		JSONObject oRes = (JSONObject)jObject.get("response");
 		JSONObject oBody = (JSONObject)oRes.get("body");

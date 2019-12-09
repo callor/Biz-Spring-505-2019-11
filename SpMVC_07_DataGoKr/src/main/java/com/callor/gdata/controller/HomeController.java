@@ -1,4 +1,4 @@
-package com.biz.gdata.controller;
+package com.callor.gdata.controller;
 
 import java.util.Locale;
 
