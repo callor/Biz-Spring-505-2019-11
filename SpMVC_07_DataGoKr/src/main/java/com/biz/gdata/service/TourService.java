@@ -28,23 +28,25 @@ public class TourService {
 		queryString += "&_type=json";
 		queryString += "&MobileOS=ETC";
 
-		queryString += String.format("&numOfRows=%d", 10);
+		queryString += String.format("&numOfRows=%d", 200);
 		queryString += String.format("&pageNo=%d", 1);
 
 		return queryString;
 
 	}
 
+	
 	public JSONArray getData() throws ParseException, IOException {
 		
 		JSONParser jParer = new JSONParser();
 		JSONObject jObject = (JSONObject) jParer.parse(this.getDataString());
 		
-		// JSONArray jArray = null;
 		
-		JSONObject oBody = (JSONObject)jObject.get("body");
-		JSONObject oitems = (JSONObject)oBody.get("items");
-		JSONArray oitem = (JSONArray)jObject.get("item");
+		JSONObject oRes = (JSONObject)jObject.get("response");
+		JSONObject oBody = (JSONObject)oRes.get("body");
+		JSONObject oItems = (JSONObject)oBody.get("items");
+		JSONArray oitem = (JSONArray)oItems.get("item");
+		
 		
 		return oitem;
 		
