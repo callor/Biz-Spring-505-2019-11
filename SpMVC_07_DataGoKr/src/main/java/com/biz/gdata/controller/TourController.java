@@ -1,4 +1,4 @@
-package com.biz.gdata.controller;
+package com.callor.gdata.controller;
 
 import java.io.IOException;
 
@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.biz.gdata.service.TourService;
+import com.callor.gdata.service.TourSimpleService;
 
 @Controller
 public class TourController {
 
 	@Autowired
-	TourService tService;
+	TourSimpleService tService;
 
 	@RequestMapping(value = "total", method = RequestMethod.GET, produces = "text/json;charset=UTF-8")
 	public String total(Model model) {
