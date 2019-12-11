@@ -14,10 +14,28 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
 $(function(){
+	
 	$("#t_city").change(function(){
-		let city_code = $(this).val()
+		// let city_code = $(this).val()
+		// alert(city_code);
+		$("#t_sigun").val(1)
+		$("form").submit()
+	})
+	$("#t_sigun").change(function(){
+		// let city_code = $(this).val()
 		// alert(city_code);
 		$("form").submit()
+	})
+	
+	
+	
+	
+	
+	
+	
+	$(".hc").click(function(){
+		let id = $(this).attr("data-id")
+		alert(id)
 	})
 })
 
@@ -31,6 +49,11 @@ $(function(){
 						itemLabel="name" 
 						itemValue="code"/>
 		</form:select>
+		<form:select path="t_sigun">
+			<form:options items="${SI}" 
+						itemLabel="name" 
+						itemValue="code"/>
+		</form:select>
 	</form:form>
 </header>
 <section>
@@ -41,7 +64,7 @@ $(function(){
 			</c:when>
 			<c:otherwise>
 				<c:forEach items="${BASELIST}" var="base">
-					<h3>${base.title}</h3>
+					<h3 class="hc" data-id="${base.contentid}">${base.title}</h3>
 					<p>주소:${base.addr1}</p>
 					<p>동명:${base.addr2}</p>
 					<p>전화번호:${base.tel}</p>

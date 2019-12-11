@@ -56,7 +56,7 @@ public class TourService2 {
 	public List<CityVO> getData() throws JsonSyntaxException, IOException {
 		
 		JsonElement jElement 
-			= JsonParser.parseString(this.getDataString());
+			= JsonParser.parseString("queryString");
 		
 		// response tag
 		JsonObject oRes 
@@ -89,12 +89,9 @@ public class TourService2 {
 		Gson gson = new Gson();
 		List<CityVO> cityList 
 		= gson.fromJson(oitemList, cityToken.getType()); 
-		
 		return cityList;
-		
 	}
 	
-
 	
 	public String getQueryString() throws UnsupportedEncodingException {
 

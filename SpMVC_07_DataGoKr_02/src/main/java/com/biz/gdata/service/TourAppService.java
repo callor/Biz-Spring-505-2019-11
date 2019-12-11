@@ -19,6 +19,8 @@ import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
+import lombok.extern.java.Log;
+
 @Service
 public class TourAppService {
 	
@@ -38,17 +40,42 @@ public class TourAppService {
 		return queryString;
 	}
 	
+	// 시도 리스트를 가져오는 query문자열
 	public String getAreaQuery() throws UnsupportedEncodingException {
 		String queryString = this.getHeaderQuery("areaCode");
 		return queryString;
 	}
 	
+	// 시도 리스트를 가져오는 query문자열 
+	//		+ 시군구 리스트를 가져오는 query 문자열 추가
+	public String getAreaQuery(String cityCode) throws UnsupportedEncodingException {
+		String queryString = this.getHeaderQuery("areaCode");
+		queryString += "&areaCode=" + cityCode;
+		return queryString;
+	}
+
+	// Controller에서 호출
+	// city 코드가 없이 실행되는 코드
+	// 시도 리스트를 추출하도록 
 	public List<CityVO> getAreaData() throws JsonSyntaxException, IOException {
+		return this.getAreaData(null);
+	}
+
+	// Controller에서 호출
+	// 시도 리스트를 선택했을때 호출
+	// city 코드가 있으면
+	// 시군구 리스트를 추출하도도록
+	public List<CityVO> getAreaData(String cityCode) throws JsonSyntaxException, IOException {
 		
 		// 이 클래스에서 만든 query 문자열을
 		// tgService의 getDateString()에 보내서
 		// 데이터 조회를 하는  method
-		String resString = tgService.getDataString(this.getAreaQuery());
+		String resString = "" ;
+		if(cityCode == null) {
+			resString = tgService.getDataString(this.getAreaQuery());
+		} else {
+			resString = tgService.getDataString(this.getAreaQuery(cityCode));
+		}
 		
 		JsonElement jElement 
 			= JsonParser.parseString(resString);
@@ -89,25 +116,30 @@ public class TourAppService {
 		
 	}
 
-	
-	
 	public String getAreaBaseQuery(String cityCode) throws UnsupportedEncodingException {
+		return this.getAreaBaseQuery(cityCode,null);
+	}
+	
+	// 지역의 관광정보를 가져오기 위한 method
+	public String getAreaBaseQuery(String cityCode,String sigun) throws UnsupportedEncodingException {
 
 		String queryString = this.getHeaderQuery("areaBasedList");
 		
 		queryString += "&arrange=A";
 		queryString += "&contentTypeId=15";
 		queryString += String.format("&areaCode=%s",cityCode);
-		queryString += String.format("&sigunguCode=%s",cityCode);
 		queryString += "&listYN=Y";
+		if(sigun != null) {
+			queryString += "&sigunguCode=" + sigun;	
+		}
+		
 		return queryString;
-
 	}
 	
-	public List<AreaBaseDTO> getAreaBaseListData(String cityCode) throws JsonSyntaxException, IOException {
+	public List<AreaBaseDTO> getAreaBaseListData(String cityCode,String sigun) throws JsonSyntaxException, IOException {
 		
 		String resString 
-		= tgService.getDataString(this.getAreaBaseQuery(cityCode));
+		= tgService.getDataString(this.getAreaBaseQuery(cityCode,sigun));
 		
 		JsonElement jElement 
 			= JsonParser.parseString(resString);
