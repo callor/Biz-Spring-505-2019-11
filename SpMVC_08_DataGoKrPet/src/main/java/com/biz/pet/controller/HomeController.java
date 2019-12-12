@@ -33,6 +33,15 @@ public class HomeController {
 		return "korea";
 		
 	}
+
+	@RequestMapping("kakaoMap")
+	public String kakao() {
+		
+		return "kakaoMap";
+		
+	}
+
+	
 	
 }
 

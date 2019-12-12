@@ -24,11 +24,25 @@ $(function(){
 	*/
 	
 	$(function () {
+		$("#map-gw").mouseover(function () {
+			$("#image-main").attr("src", 'images/map/gwangju.png')
+		}).mouseout(function () {
+			$("#image-main").attr("src", 'images/map/korea.png')
+		})
+
+		$("#map-ch").mouseover(function () {
+			$("#image-main").attr("src", 'images/map/jeonam.png')
+		}).mouseout(function () {
+			$("#image-main").attr("src", 'images/map/korea.png')
+		})
+
 		$("#map-se").mouseover(function () {
 			$("#image-main").attr("src", 'images/map/seoul.png')
 		}).mouseout(function () {
 			$("#image-main").attr("src", 'images/map/korea.png')
 		})
+
+	
 	})
 	
 	
@@ -54,6 +68,10 @@ body {
     /* body height를 100으로 설정하려면 html도 height를 같이 맞춰줘야함(html은 height가 기본적으로 없음) */
     height: 100%;
     margin: 0 auto;
+}
+
+area {
+	border:1px solid yellow;
 }
 
 #head{
@@ -171,7 +189,10 @@ nav ul li a:hover {
 				<li><a href="#">커뮤니티</a></li>
 			</ul>	
 		</nav>
-		<img class="bannerimg" id="image-main" src="${rootPath}/images/banner.png" width=100% alt="배너이미지">
+		<img class="bannerimg" 
+			id="image-main" 
+			src="${rootPath}/images/banner.png" 
+			width=100% alt="배너이미지">
 </div>
 
 <!-- 
@@ -186,7 +207,9 @@ nav ul li a:hover {
  -->
 
 	<div id="container">
-		<img src="${rootPath}/images/map/korea.png" class="map-trains" alt="한국지도" usemap="#image-map" />
+		<img src="${rootPath}/images/map/korea.png"
+				width="400"  height="625"
+				class="map-trains" alt="한국지도" usemap="#image-map" />
 	</div>
 	<map name="image-map" id="image-map" class="map-areas">
 		<area target="_self" id="map-gw"
