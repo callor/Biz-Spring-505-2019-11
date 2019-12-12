@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <c:set var="rootPath" value="${pageContext.request.contextPath }" />
 <!DOCTYPE html>
 <html>
@@ -8,6 +9,28 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>□□□ 나의 JSP 페이지 □□□</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+$(function(){
+	
+	$("#s_cat").change(function(){
+		$("form").submit()
+	})
+	
+	/* 
+	아직은 모든 브라우저에서 지원하지 않지만
+	type="search" 인 input box에서 clear 버튼을 눌렀을때
+	발생하는 이벤트를 catch 하여 처리가능
+	*/
+	$("#s_text").on("search",function(){
+		$("form").submit()
+	})
+	
+})
+
+
+</script>
+
 <style>
 	header {
 		background-color: rgba(0,  255,  0,  0.3);
@@ -55,13 +78,15 @@
 	<h2>my pet life</h2>
 </header>
 <nav>
-	<form>
-		<select name="s_cat">
-			<option value="hs">병원명</option>
-			<option value="addr">주소</option>
-		</select>
-		<input type="text" name="s_text" placeholder="검색어를 입력한후 Enter...">
-	</form>
+	<form:form modelAttribute="searchVO" method="GET">
+		<form:select path="s_cat">
+			<form:option value="hs">병원명 찾기</form:option>
+			<form:option value="addr">주소 찾기</form:option>
+		</form:select>
+		<form:input type="search" 
+			path="s_text" 
+			placeholder="검색어를 입력한후 Enter..." />
+	</form:form>
 </nav>
 <section class="list">
 	<table class="list">

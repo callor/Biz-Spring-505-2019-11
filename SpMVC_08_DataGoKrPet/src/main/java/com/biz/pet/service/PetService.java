@@ -32,18 +32,23 @@ public class PetService {
 		String queryString = go_pet_url;
 		queryString += "/getDongMulHospital" ; 
 		queryString += "?ServiceKey=" + DataGoConfig.DATA_GO_AUTH   ;
-		queryString += "&address=";
 		queryString += "&pageNo=1";
 		queryString += "&numOfRows=100";
 		return queryString ;
 	}
 	
-	public List<GoPetVO> getRestVoList(String s_text) {
+	public List<GoPetVO> getRestVoList(String s_cat, String s_text) {
 		
 		String queryString = this.getQueryHeader();
 		
 		try {
-			queryString += "&dongName=" + URLEncoder.encode(s_text,"UTF-8");
+			if(s_cat.equalsIgnoreCase("ADDR")) {
+				queryString += "&address="
+							+ URLEncoder.encode(s_text,"UTF-8");				
+			} else {
+				queryString += "&dongName=" 
+							+ URLEncoder.encode(s_text,"UTF-8");	
+			}
 		} catch (UnsupportedEncodingException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
