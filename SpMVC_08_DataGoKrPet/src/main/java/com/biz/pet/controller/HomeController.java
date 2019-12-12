@@ -27,6 +27,13 @@ public class HomeController {
 		return "redirect:/pet" ;
 	}
 	
+	@RequestMapping("korea")
+	public String korea() {
+		
+		return "korea";
+		
+	}
+	
 }
 
 

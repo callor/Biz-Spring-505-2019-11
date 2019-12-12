@@ -45,13 +45,23 @@ $(function(){
 		position: relative;
 	}
 	
-	nav input, nav select {
+	nav input,nav select {
 		width:300px;
 		padding:8px;
 		margin:10px;
 		border : 1px solid orange;
 		border-radius: 20px;
 		
+	}
+	
+	nav select {
+		background: url('${rootPath}/images/arrow.png') 
+				no-repeat 95% 50%;
+		background-color: white;
+		
+		appearance:none;
+		-moz-appearance:none;
+		-webkit-appearance:none;
 	}
 	
 	nav:hover:after{
