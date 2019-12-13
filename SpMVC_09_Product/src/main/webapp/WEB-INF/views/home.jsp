@@ -17,13 +17,24 @@ $(function(){
 		$.ajax({
 			
 			url : '${rootPath}/plist',
-			success : function(result) {
+			success : function(proList) {
+				$('article.detail').html(proList)
+				
+				/*
+				proList.forEach(function(vo){
+					$("article.detail").append(
+							// $("<p/>",{ text : vo.p_name })
+						"<p><span>" + vo.p_code +"</span> : "
+						+ "<span>" + vo.p_name +"</span> : "
+						+ "<span>" + vo.p_iprice +"</span> : "
+						+ "<span>" + vo.p_oprice +"</span>"
+					)
+				})
+				*/
 				
 			}
-		
 		})
 	})
-	
 
 	$("#btn_search").click(function(){
 		
@@ -70,12 +81,26 @@ $(function(){
 		margin : 10px auto;
 	}
 	
+	article.detail {
+		height: 300px;
+		overflow: auto;
+	 
+	}
+	
 	table.p-main {
 		width:95%;
 		margin:10px auto;
 		border-collapse: collapse;
 		border : 1px solid green;
 	} 
+	
+	
+	table.p-list {
+		width:95%;
+		margin: 10px auto;
+		border-collapse: collapse;
+		bordre : 1px solid green;
+	}
 	
 	ul {
 		display: flex;

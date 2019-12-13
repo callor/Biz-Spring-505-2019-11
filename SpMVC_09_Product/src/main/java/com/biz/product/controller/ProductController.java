@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,16 +18,18 @@ public class ProductController {
 	@Autowired
 	ProductSerivce pService;
 
-	
-	@ResponseBody
+	// @ResponseBody
 	@RequestMapping(
 			value="plist",
 			method=RequestMethod.GET,
 			produces = "application/json;charset=UTF-8;")
 	
-	public List<ProductDTO> getPlist() {
+	public String getPlist(Model model) {
 		List<ProductDTO> proList = pService.selectAll();
-		return proList;
+		
+		model.addAttribute("PLIST",proList);
+		return "p-list";
+	
 	}
 
 	@ResponseBody
