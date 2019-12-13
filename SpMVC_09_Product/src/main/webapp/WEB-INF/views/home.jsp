@@ -9,45 +9,115 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>□□□ 나의 JSP 페이지 □□□</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<style>
-	p {
-		border : 1px solid blue;
-		padding:16px;
-		margin:10px;
-	}
-
-</style>
-
 <script>
 $(function(){
 	
-	$("#ajax").click(function(){
+	$("#btn_all").click(function(){
 		
 		$.ajax({
-			url:"${rootPath}/nation",
-			data : { str :$("#input-1").val() },
+			
+			url : '${rootPath}/plist',
 			success : function(result) {
-				$("#p4").text(result)
+				
+			}
+		
+		})
+	})
+	
+
+	$("#btn_search").click(function(){
+		
+		var in_p_code = $("#p_code").val()
+		$.ajax({
+			url : '${rootPath}/pname',
+			data : { p_code : in_p_code },
+			success : function(result) {
+				$("article.detail").append(
+						// '<p>' + result + '</p>'
+						$("<p/>",
+							{html : result,
+								 class : 'pc'
+							 })
+				)
+			},
+			error : function(error) {
+				$("article.detail").text(error)
 			}
 		})
 	})
 })
 </script>
+<style>
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	header {
+		background-color: green;
+		color:white;
+		padding:0.8rem;
+	}
+	
+	nav {
+		background-color: rgba(0 , 255 , 0, 0.3 );
+		padding:10px;
+	}
+	
+	article {
+		border :  1px solid blue;
+		margin : 10px auto;
+	}
+	
+	table.p-main {
+		width:95%;
+		margin:10px auto;
+		border-collapse: collapse;
+		border : 1px solid green;
+	} 
+	
+	ul {
+		display: flex;
+		list-style: none;
+	}
+	
+	ul a  {
+		text-decoration: none;
+		display:inline-block; 
+		padding : 14px 10px;
+	}
+	
+</style>
 </head>
 <body>
 <header>
 	<h3>Product</h3>
 </header>
+<nav>
+	<ul>
+		<li><a href="#">Logo</a></li>
+		<li><input id="p_code"><button id="btn_search">검색</button>
+		<li><button id="btn_all">상품리스트 가져오기</button>
+	</ul>
+</nav>
 <section>
-
-	<p class="pc" id="p1">클릭1</p>
-	<p><input id="input-1" name="in_01">
-	<p class="pc" id="ajax">Ajax</p>
-	<p class="pc" id="p3">클릭3</p>
-	<p class="pc" id="p4">클릭4</p>
-	<p class="pc" id="p5">클릭5</p>
-
+	<article class="main">
+		<table class="p-main" border="1">
+			<tr>
+				<th>상품코드</th>
+				<th>상품이름</th>
+			</tr>
+			<tr class="p-list">
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+	</article>
+	
+	<article class="detail">
+	
+	</article>
 </section>
-
 </body>
 </html>
