@@ -8,25 +8,23 @@ import lombok.ToString;
 
 @XmlRootElement(name="wantedList")
 @ToString
-public class WantedList {
-
+public class WantedDetail {
+	
 	public String numOfRows;		//	한페이지 결과수
 	public String pageNum;		//	페이지번호
 	public String totalCount;		//	전체 데이터수
-
+	
+	/*
+	 * 
+	 * <wantedList>
+	 * 		<servList></servList>
+	 * 		<servList></servList>
+	 * 		<servList></servList>
+	 * 		<servList></servList>
+	 * 		<servList></servList>
+	 * 		<servList></servList>
+	 * </wantedList>
+	 * 
+	 */
 	public List<BokListVO> servList;
 }
-
-
-/*
- * 
- * <wantedList>
- * 		<servList></servList>
- * 		<servList></servList>
- * 		<servList></servList>
- * 		<servList></servList>
- * 		<servList></servList>
- * 		<servList></servList>
- * </wantedList>
- * 
- */

@@ -9,12 +9,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.biz.bok.domain.BokDetailVO;
 import com.biz.bok.domain.BokListVO;
 import com.biz.bok.domain.BokSearchDTO;
-import com.biz.bok.service.BokService;
+import com.biz.bok.service.BokDetailService;
+import com.biz.bok.service.BokListService;
 import com.biz.bok.service.CodeService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -49,65 +52,89 @@ import lombok.extern.slf4j.Slf4j;
 @SessionAttributes("bokSearchDTO")
 @Controller
 public class BokController {
-	
+
 	@Autowired
 	CodeService cService;
+
+	@Autowired
+	BokListService blService;
 	
 	@Autowired
-	BokService bService;
+	BokDetailService bdService;
 
 	/*
-	 * SessionAttributes에 등록된 객체변수는
-	 * 현재 controller내에서 반드시 생성하는 method가 있어야한다.
+	 * SessionAttributes에 등록된 객체변수는 현재 controller내에서 반드시 생성하는 method가 있어야한다.
 	 */
 	@ModelAttribute("bokSearchDTO")
 	public BokSearchDTO bokSearchDTO() {
-		return bService.getDefaultSearch();
+		return blService.getDefaultSearch();
 	}
-	
+
 	/*
-	 * web에서 search를 req하면
-	 * 매개변수 bokSearchDTO를 어딘가로 부터 받아야 하는데
-	 * 최초에는 아무도 이 값이 없는 상태로 search를 호출한다
+	 * web에서 search를 req하면 매개변수 bokSearchDTO를 어딘가로 부터 받아야 하는데 최초에는 아무도 이 값이 없는 상태로
+	 * search를 호출한다
 	 * 
-	 * 이럴경우 bokSearchDTO() method가 자동으로 호출되어
-	 * bokSearchDTO 객체를 사용할수 있도록 초기화 생성을 준다.
+	 * 이럴경우 bokSearchDTO() method가 자동으로 호출되어 bokSearchDTO 객체를 사용할수 있도록 초기화 생성을 준다.
 	 */
-	@RequestMapping(value="search", method=RequestMethod.GET)
-	public String search(
-			@ModelAttribute("bokSearchDTO") 
-			BokSearchDTO bokSearchDTO,
-			
+	@RequestMapping(value = "search", method = RequestMethod.GET)
+	public String search(@ModelAttribute("bokSearchDTO") BokSearchDTO bokSearchDTO,
+
 			Model model) {
-		model.addAttribute("bokSearchDTO",bokSearchDTO);
-		model.addAttribute("SeMap",cService.getSelectMaps());
+		model.addAttribute("bokSearchDTO", bokSearchDTO);
+		model.addAttribute("SeMap", cService.getSelectMaps());
 		return "home";
 	}
-	
-	@ResponseBody
-	@RequestMapping(value="search", 
-		method=RequestMethod.POST,
-		produces = "application/json;charset=UTF-8")
-	public List<BokListVO> search(
-			@ModelAttribute("bokSearchDTO") 
-			BokSearchDTO bokSearchDTO,
-			Model model,String strDumy) throws UnsupportedEncodingException {
-		
-		// bokSearchDTO.setSearchWrd("청년정책");
-		
-		model.addAttribute("bokSearchDTO",bokSearchDTO);
-		model.addAttribute("SeMap",cService.getSelectMaps());
-		
-		List<BokListVO> bokList = bService.getRestResult(bokSearchDTO);
-		
+
+	// @ResponseBody
+	@RequestMapping(value = "search", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	public String search(@ModelAttribute("bokSearchDTO") BokSearchDTO bokSearchDTO, Model model, String strDumy)
+			throws UnsupportedEncodingException {
+
+		model.addAttribute("bokSearchDTO", bokSearchDTO);
+		model.addAttribute("SeMap", cService.getSelectMaps());
+
+		List<BokListVO> bokList = blService.getRestResult(bokSearchDTO);
+
 		log.debug("결과물 : " + bokList);
 		// return "home";
-		return bokList;
-		
+
+		model.addAttribute("BOK_LIST", bokList);
+		return "home";
 	}
 
-	
-	
-	
+	@RequestMapping(value = "searchAPI", 
+			method = RequestMethod.POST, 
+			produces = "application/json;charset=UTF-8")
+	public String searchAPI(@ModelAttribute("bokSearchDTO") BokSearchDTO bokSearchDTO, Model model,
+			String strDumy) throws UnsupportedEncodingException {
 
+		model.addAttribute("bokSearchDTO", bokSearchDTO);
+		model.addAttribute("SeMap", cService.getSelectMaps());
+
+		List<BokListVO> bokList = blService.getRestResult(bokSearchDTO);
+
+		log.debug("결과물 : " + bokList);
+		// return "home";
+
+		model.addAttribute("BOK_LIST", bokList);
+		return "BokList";
+	}
+	
+	
+	@RequestMapping(
+			value="detail",
+			method=RequestMethod.GET,
+			produces = "application/json;charset=UTF-8")
+	
+	public String detail(
+			@RequestParam("id") String servId,Model model) {
+		
+		BokDetailVO bokDetail = bdService.getRestResult(servId);
+		
+		log.debug("DETAIL" + bokDetail.toString());
+		
+		model.addAttribute("detail",bokDetail);
+		
+		return "BokDetail";
+	}
 }

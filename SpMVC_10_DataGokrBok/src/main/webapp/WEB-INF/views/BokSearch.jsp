@@ -2,12 +2,68 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<c:set var="rootPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>□□□ 나의 JSP 페이지 □□□</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+$(function(){
+	
+	$("#btn-search").click(function(){
+		
+		// $('form').serialize()
+		// form에 입력된 데이터를 json 데이터 type으로 바꾸어서
+		// 서버에 전송할수 있도록 (문자열 화) 하여라
+		var queryString = $("form").serialize();		
+		/*
+		Async JavaScript XML
+		비동기방식으로 서버에 request를 보낼때 사용하는 
+		JS의 내장 프로토콜
+		1. web에서 ajax에게 req를 요청하면
+		2. ajax는 즉시 ok를 보내서 web이 다른 작업을 수행할수 있도록 하고
+		3. ajax는 매개변수로 설정된 항목에 의해서
+			서버에 request를 보낸다.
+		4. 서버에서 정상적으로 response를 보내면
+		5. success에 설정된 함수를 실행한다.
+		6. success에 설정된 함수에 열러가지 코드를 작성하여
+		7. 결과를 처리 한다.
+		*/
+		$.ajax({
+			url : "${rootPath}/searchAPI", // 서버로 req할 주소
+			data : queryString,				// 서버로 보낼 데이터
+			type : 'post',					// req할 method
+			// dataType: 'json',				// res로 받을 데이터 타입
+			success : function(result) {	// 결과가 성공했을때
+				// resFunc(result)
+				$("#bok-list").html(result)
+			},
+			error : function(xhr,status,error) {// 서버에서 오류를 보낼때
+				alert(error)
+			}
+		})
+		
+		/*
+		var resFunc = function(result) {
+			let temp = $("#bok-temp")
+			
+			result.forEach(function(vo) {
+				// $("p").text(vo.servDgst)
+				temp.append($("<p/>",{
+							text : vo.servDgst,
+							dataId : vo.servDgst
+						}))
+			})
+		}
+		*/
+	})
+})
+
+</script>
 </head>
 <body>
 	<style>
@@ -16,27 +72,29 @@ fieldset div {
 }
 
 fieldset {
-	width: 80%;
+	width: 95%;
 	border: 1px solid green;
 	border-radius: 10px;
 	margin: 10px auto;
-	padding:20px;
+	padding: 20px;
 }
 
 fieldset div {
-	width:90%;
-	margin:0 auto;
+	width: 90%;
+	margin: 0 auto;
 }
 
 fieldset div label {
 	display: inline-block;
 	width: 15%;
-	padding: 8px;
+	padding: 8px 10px;
 	margin: 2px;
-	text-align: right;
+	margin-right: 5px; text-align : right;
 	vertical-align: center;
 	color: blue;
 	font-weight: bold;
+	white-space: nowrap;
+	text-align: right;
 }
 
 fieldset div input, fieldset div select {
@@ -47,13 +105,12 @@ fieldset div input, fieldset div select {
 	border: 1px solid #ddd;
 }
 
-
 #srchKeyCode {
-	width:30%;
+	width: 30%;
 }
 
 #searchWrd {
- 	width:50%;
+	width: 50%;
 }
 
 button#btn-search {
@@ -61,13 +118,12 @@ button#btn-search {
 	background-color: #007bff;
 	border-color: #007bff;
 	padding: 7px 30px;
-	margin-top:10px;
-	margin-left:auto;
+	margin-top: 10px;
+	margin-left: auto;
 	border-radius: 5px;
 }
 
-
-button#btn-search:hover  {
+button#btn-search:hover {
 	color: #fff;
 	background-color: #0069d9;
 	border-color: #0062cc
@@ -128,7 +184,7 @@ button#btn-search.focus, button#btn-search:focus {
 			</div>
 			<div>
 				<label></label>
-				<button id="btn-search">조회</button>
+				<button id="btn-search" type="button">조회</button>
 			</div>
 		</fieldset>
 	</form:form>
