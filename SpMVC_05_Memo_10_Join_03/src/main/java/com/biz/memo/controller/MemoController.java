@@ -169,6 +169,13 @@ public class MemoController {
 		if(userDTO != null && 
 			userDTO.getU_id().equals(memoDTO.getM_auth())) {
 			
+			// enter를 <br>로 바꾸어 view로 보내기
+			String text = memoDTO.getM_text();
+			
+			text = text.replaceAll("\n\r|\r|\n", "<br>");
+			
+			memoDTO.setM_text(text);
+			
 			model.addAttribute("memoDTO",memoDTO);
 			model.addAttribute("BODY","MEMO_VI");
 			return "memo/view";
