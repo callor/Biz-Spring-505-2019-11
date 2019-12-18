@@ -172,7 +172,7 @@ public class MemoController {
 			// enter를 <br>로 바꾸어 view로 보내기
 			String text = memoDTO.getM_text();
 			
-			text = text.replaceAll("\n\r|\r|\n", "<br>");
+			// text = text.replaceAll("\n\r|\r|\n", "<br>");
 			
 			memoDTO.setM_text(text);
 			

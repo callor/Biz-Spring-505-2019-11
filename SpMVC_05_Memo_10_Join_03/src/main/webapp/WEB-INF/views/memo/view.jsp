@@ -61,6 +61,10 @@
 		/* border:1px solid blue; */
 		box-shadow: 5px 5px 8px rgba(80,80,80,0.8)
 	}
+	
+	td.m-text {
+		white-space: pre-wrap;
+	}
 </style>
 <script>
 $(function(){
@@ -121,7 +125,7 @@ $(function(){
 	</tr>
 	
 	<tr>
-	<th>세부내용</th><td colspan="3">${memoDTO.m_text}</td>
+	<th>세부내용</th><td colspan="3" class="m-text">${memoDTO.m_text}</td>
 	</tr>
 
 </table>
