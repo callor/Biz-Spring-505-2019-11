@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.biz.product.persistence.FileDao">
+
+	<insert id="filesInsert" parameterType="proFileDTO">
+		<foreach collection="list" item="proFileDTO">
+		INSERT INTO tbl_files (	
+			FILE_SEQ,
+			FILE_P_CODE,
+			FILE_ORIGIN_NAME,
+			FILE_UPLOAD_NAME
+		) VALUES(	
+			SEQ_FILES.NEXTVAL,
+			#{file_p_code,jdbcType=VARCHAR},
+			#{file_origin_name,jdbcType=VARCHAR},
+			#{file_upload_name,jdbcType=VARCHAR}
+		)
+		</foreach>
+	</insert>
+
+	<!-- 1개의 레코드를 추가 -->
+	<insert id="fileInsert" parameterType="proFileDTO">
+		INSERT INTO tbl_files (	
+			FILE_SEQ,
+			FILE_P_CODE,
+			FILE_ORIGIN_NAME,
+			FILE_UPLOAD_NAME
+		) VALUES(	
+			SEQ_FILES.NEXTVAL,
+			#{file_p_code,jdbcType=VARCHAR},
+			#{file_origin_name,jdbcType=VARCHAR},
+			#{file_upload_name,jdbcType=VARCHAR}
+		)
+	</insert>
+
+
+  
+</mapper>
