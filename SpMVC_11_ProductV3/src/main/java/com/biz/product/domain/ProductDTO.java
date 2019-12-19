@@ -23,7 +23,7 @@ public class ProductDTO {
 	private String p_vat;		//	varchar2(1 byte)
 	private String p_file;
 	
-	// private List<ProFileDTO> p_files;
+	private List<ProFileDTO> p_files;
 	
 }
 

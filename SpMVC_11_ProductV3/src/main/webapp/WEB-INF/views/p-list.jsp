@@ -19,14 +19,29 @@ $(function(){
 				$("#p_name").val(result.p_name)
 				$("#p_iprice").val(result.p_iprice)
 				$("#p_oprice").val(result.p_oprice)
-				$("#p_file").val(result.p_file)
-				
-				let image = "${rootPath}/files/noimage.png"
-				if(result.p_file != null) {
-					image = "${rootPath}/files/" + result.p_file
+				// $("#p_file").val(result.p_file)
+				if(result.p_vat == "1") {
+					#("#p_vat").attr("checked","checked")	
+				} else {
+					#("#p_vat").attr("checked","")
 				}
-				$("#p_image").attr("src",image)
 				
+							
+				$("#p_sub_list").html("")
+				if(result.p_files.length > 0) {
+					
+					result.p_files.forEach(function(file){
+						$("#p_sub_list").append(
+							$("<img/>",{
+								width:"100px",
+								height:"100px",
+								margin:"10px",
+								src : "${rootPath}/files/" 
+									+ file.file_upload_name  
+							})
+						)
+					})
+				}
 			},
 			error : function() {
 				alert("서버 통신 오류")
@@ -51,7 +66,11 @@ $(function(){
 				<td>${vo.p_name}</td>
 				<td>${vo.p_iprice}</td>
 				<td>${vo.p_oprice}</td>
-				<td>${vo.p_file}</td>
+				<td>${vo.p_files}
+					<c:if test="${vo.p_files != null}">
+						파일있음
+					</c:if>
+				</td>
 			</tr>					
 		</c:forEach>
 	</table>

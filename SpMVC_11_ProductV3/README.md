@@ -40,3 +40,18 @@ location폴더의 내용에 접근할수 있도록 설정하는 것이다.
 BeanNameUrlHandlerMapping을 servlet-context.xml에 benas:bean으로 등록을 해준다.
 
 * BeanNameUrlHandlerMapping : Dispatcher가 기본으로 사용하는 Mapping인데 간혹 일부 기능에서 참조를 못하는 경우가 있어서 bean으로 설정을 한다.
+
+
+## 다중파일 업로드
+#### 파일을 여러개 선택하여 동시에 업로드 하기
+* input type="file" 에 multiple="multiple"  속성을 추가하고
+* controller에서 MultipartHttpServletRequest 클래스로 데이터를 수신하기
+
+* 수신한 파일 정보에서 MulipartFile들을 추출하여 각각 upload를 수행하고
+* 파일이름 List를 생성하여 tbl_files 테이블에 insert를 수행한다 
+* mybatis의 동적쿼리를 활용하여 다수의 insert를 한번에 처리한다.
+
+#### 상품정보 추가와 상품정보 변경할경우 파일 업로드
+* 1개의 파일을 업로드하는 경우 상품정보를 변경할때 기존 파일과 파일정보를 제거하고 새로운 파일을 업로드 및 정보 업데이트 수행
+* 2개 이상의 파일을 업로드 할경우 상품추가, 상품변경에서 파일은 추가만 수행을 한다
+* 필요없는 파일은 별도로 파일들만 삭제하는 기능을 구현한다.

@@ -56,6 +56,9 @@ public class ProductController {
 			// 다수의 파일 업로드 정보를 수신
 			MultipartHttpServletRequest u_files) {
 		
+		// 파일리스트만 추출
+		List<MultipartFile> fs = u_files.getFiles("u_files");
+		
 		/*
 		 * MultipartHttpServletRequest 여려개의
 		 * MultipartFile을 포함하고 있는 객체리스트
@@ -65,22 +68,25 @@ public class ProductController {
 			log.debug("파일이름 : " + f.getOriginalFilename());
 		}
 		
-		// 파일 업로드 수행
+		// 파일 업로드 수행후 파일리스트를 받음
 		List<ProFileDTO> upFileList = fService.filesUp(u_files);
 		
-		if(upFileList != null) {
-			// 파일정보를 table에 저장하는 코드
-		}
-
 		int ret = 0;
 		if(proDTO.getP_code().isEmpty()) {
+			
 			log.debug("새로운 상품등록");
+			
+			// 상품정보와 파일 리스트를 insert() method에 전달
 			ret = pService.insert(proDTO,upFileList);
+			
 			// insert 실행
+			
 		} else {
 			log.debug("기존 상품변경");
 			// update 실행
-			ret = pService.update(proDTO);
+			
+			// 변경할 상품정봐 파일리스트를 update() method에 전달
+			ret = pService.update(proDTO,upFileList);
 		}
 		
 		return "redirect:/plist";
@@ -89,16 +95,16 @@ public class ProductController {
 	
 	@RequestMapping(value="imgDelete",method=RequestMethod.GET)
 	public String imgDelete(String p_code) {
-		
+		/*
 		ProductDTO proDTO = pService.findByPCode(p_code);
 		if(proDTO.getP_file() != null && 
 				!proDTO.getP_file().isEmpty()) {
 
 			fService.fileDelete(proDTO.getP_file());
 			proDTO.setP_file(null);
-			pService.update(proDTO);
-			
+			// pService.update(proDTO);
 		}
+		*/
 		return "redirect:/plist";
 	}
 	/*

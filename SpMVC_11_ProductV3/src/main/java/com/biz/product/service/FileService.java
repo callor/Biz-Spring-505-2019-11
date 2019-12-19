@@ -41,7 +41,10 @@ public class FileService {
 		try {
 			for(MultipartFile file : u_files.getFiles("u_files")) {
 				
+				// 파일을 업로드 하고 파일명 받기
+				// upFileName = UUID + originalFileName
 				String upFileName = this.fileUp(file);
+				
 				ProFileDTO pf = ProFileDTO.builder()
 							.file_origin_name(file.getOriginalFilename())
 							.file_upload_name(upFileName)
@@ -58,6 +61,10 @@ public class FileService {
 		return upFileList;
 	}
 	
+	/*
+	 * 1개의 파일을 서버 폴더에 업로드하고
+	 * 변화된 파일명(UUID+originaFileName)을 return
+	 */
 	public String fileUp(MultipartFile u_file) throws Exception {
 		
 		// 업로드된 파일정보에서 파일이름만 추출

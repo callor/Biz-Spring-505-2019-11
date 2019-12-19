@@ -30,7 +30,10 @@ public class ProductSerivce {
 	}
 	
 	public ProductDTO findByPCode(String p_code) {
-		return proDao.findByPCode(p_code);
+		ProductDTO proDTO = proDao.findByPCode(p_code);
+		log.debug("상품정보 : " + proDTO.toString());
+		
+		return  proDTO;
 	}
 	
 	public List<ProductDTO> findByPNames(String p_name) {
@@ -46,6 +49,9 @@ public class ProductSerivce {
 	public int insert(ProductDTO proDTO, List<ProFileDTO> upFileList) {
 		// TODO Auto-generated method stub
 		
+		/*
+		 * 코드 생성
+		 ---------------------------------------*/
 		String p_code = proDao.getMaxPCode();
 		String p_prefixCode = "P";
 		
@@ -60,31 +66,53 @@ public class ProductSerivce {
 		}
 		// P0001 형식으로 코드 문자열 생성
 		p_code = String.format("%s%04d",p_prefixCode, intPCode);
+		/*----------------------------------------
+		 		코드 생성 
+		 										*/
+		
 		proDTO.setP_code(p_code);
 
+		/*
+		 * 파일 리스트에 상품코드를 등록하여
+		 * 상품과 파일리스트간의 연관을 설정하기
+		 */
 		log.debug("업로드 파일 정보" + upFileList);
 		if(upFileList != null) {
 			
 			// 상품정보에 등록할 상품코드를 파일정보에 업데이트
 			int nSize = upFileList.size();
+			fileDao.filesInsert(upFileList,p_code);
+			/*
+			 * 파일의 개수만큼 tbl_files에 insert를 수행해야 하는데
+			 * mybatis foreach를 활용한 동적쿼리를 작성하여
+			 * 한번의 connection으로 다수의 레코드에 insert를 수행한다
+			 */
+			
+			/*
 			for(int i = 0 ; i < nSize ; i++) {
 				upFileList.get(i).setFile_p_code(p_code);
 				log.debug("파일정보 : " + upFileList.get(i).toString());
 			
 				// 파일정보를 1씩 DBMS에 insert 수행하기
 				fileDao.fileInsert(upFileList.get(i));
-			
 			}
-			// fileDao.filesInsert(upFileList);
+			*/
 		}
 		
-		
-		return proDao.insert(proDTO);
+		// 상품테이블에 상품정보 추가
+		int ret = proDao.insert(proDTO);
+		return ret;
+	
 	}
 
 	public int update(ProductDTO proDTO) {
-		// TODO Auto-generated method stub
+		String p_code = proDTO.getP_code();
 		return proDao.update(proDTO);
 	}
 	
+	public int update(ProductDTO proDTO, List<ProFileDTO> upFileList) {
+		String p_code = proDTO.getP_code();
+		fileDao.filesInsert(upFileList,p_code);
+		return proDao.update(proDTO);
+	}
 }

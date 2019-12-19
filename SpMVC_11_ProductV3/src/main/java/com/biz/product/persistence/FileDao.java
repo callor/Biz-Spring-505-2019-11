@@ -2,12 +2,19 @@ package com.biz.product.persistence;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.biz.product.domain.ProFileDTO;
 
 public interface FileDao {
 
+	public List<ProFileDTO> fileList(List<ProFileDTO> fileList);
+	
 	public void fileInsert(ProFileDTO file) ;
-	public void filesInsert(List<ProFileDTO> files) ;
+	
+	public void filesInsert(
+			@Param("files") List<ProFileDTO> files,
+			@Param("p_code") String p_code) ;
 	
 	// 파일을 개별적으로삭제
 	public void fileDelete(long file_seq);

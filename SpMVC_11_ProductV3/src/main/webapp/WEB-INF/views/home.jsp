@@ -98,7 +98,10 @@ div#p_list {
 
 					<div class="form-group form-check">
 						<label class="form-check-label"> <input
-							class="form-check-input" type="checkbox" name="p_vat" value="1">
+							class="form-check-input" 
+							type="checkbox"
+							name="p_vat" 
+							value="1">
 							과세
 						</label>
 					</div>
@@ -148,7 +151,10 @@ div#p_list {
 				</form>
 
 			</section>
-			<div id="p_list" class="col-lg-3 col-md-5 col-sm-11">보조정보</div>
+			<div id="p_sub_list" 
+					class="col-lg-3 col-md-5 col-sm-11">
+					보조정보
+			</div>
 
 		</article>
 	</section>
