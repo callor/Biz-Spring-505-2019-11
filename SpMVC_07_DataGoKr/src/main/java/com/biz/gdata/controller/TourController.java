@@ -1,4 +1,4 @@
-package com.callor.gdata.controller;
+package com.biz.gdata.controller;
 
 import java.io.IOException;
 
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.callor.gdata.service.TourSimpleService;
+import com.biz.gdata.service.TourSimpleService;
 
 @Controller
 public class TourController {

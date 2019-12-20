@@ -1,4 +1,4 @@
-package com.callor.gdata;
+package com.biz.gdata;
 
 public class Main {
 

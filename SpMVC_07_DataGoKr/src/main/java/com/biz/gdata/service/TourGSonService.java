@@ -1,4 +1,4 @@
-package com.callor.gdata.service;
+package com.biz.gdata.service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,7 +14,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 
-import com.callor.gdata.config.DataGoConfig;
+import com.biz.gdata.config.DataGoConfig;
 import com.google.gson.JsonObject;
 
 @Service

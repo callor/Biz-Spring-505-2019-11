@@ -1,4 +1,4 @@
-package com.callor.gdata.config;
+package com.biz.gdata.config;
 
 /*
  * 공공 DB에서 인증키를 발급받고 goDataAuth값에 추가하고
