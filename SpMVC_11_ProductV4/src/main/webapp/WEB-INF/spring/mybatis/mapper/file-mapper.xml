@@ -5,6 +5,11 @@
   
 <mapper namespace="com.biz.product.persistence.FileDao">
 
+	<select id="findByFileSeq" resultType="proFileDTO">
+		SELECT * FROM tbl_files WHERE file_seq = #{file_seq}
+	</select>
+
+
 	<!-- 동적쿼리를 사용해서 다수의 레코드를 한번에 insert 수행 -->
 	<insert id="filesInsert" parameterType="proFileDTO">
 		INSERT INTO tbl_files (
@@ -57,6 +62,12 @@
 		) SUB
 	</select>
 
-
+	<!-- 01   '01' '1 '-->
+	<delete id="fileDelete">
+		DELETE FROM tbl_files WHERE file_seq = #{file_seq}
+	</delete>
   
 </mapper>
+
+
+

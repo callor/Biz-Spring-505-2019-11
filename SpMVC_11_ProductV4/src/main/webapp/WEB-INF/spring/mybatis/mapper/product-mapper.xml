@@ -5,7 +5,7 @@
   
 <mapper namespace="com.biz.product.persistence.ProductDao">
 
-  <select id="selectAll" resultType="productDTO">
+  <select id="selectAll" resultMap="proAndFiles">
     select * from tbl_product ORDER BY p_code DESC
   </select>
 

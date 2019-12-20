@@ -6,10 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.biz.product.domain.ProFileDTO;
 import com.biz.product.domain.ProductDTO;
+import com.biz.product.service.FileService;
 import com.biz.product.service.ProductSerivce;
 
 /*
@@ -24,6 +25,20 @@ public class ProductRestController {
 
 	@Autowired
 	ProductSerivce pService;
+	
+	@Autowired
+	FileService fService;
+	
+	@RequestMapping(value="subImgDelete",
+				method=RequestMethod.GET,
+				produces = "text/html;charset=UTF-8")
+	public String subImgDelete(String file_seq) {
+		
+		String p_code = pService.subImgDelete(file_seq);
+		return p_code;
+	
+	}
+	
 	@RequestMapping(value="/getProduct",
 			method=RequestMethod.GET,
 			produces = "application/json;charset=UTF-8")

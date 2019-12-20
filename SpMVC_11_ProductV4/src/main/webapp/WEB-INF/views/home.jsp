@@ -30,21 +30,56 @@ div#p_list {
 	overflow: auto;
 }
 
-#p_image {
+.form-group.container {
 	position: relative;
+	
+	width:250px;
+	padding:10px;
+	
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
 }
 
-#p_image:hover {
-	background-color: rgba(0, 0, 0, 0.3);
+.form-group.container .imgMenu {
+	position: absolute;
+	top:0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	opacity: 0;
+	padding:20px;
+	transition: 0.5s ease;
+	background-color: #008CBA;
 }
+
+.form-group.container:hover .imgMenu {
+	opacity: .8;
+}
+
+div.img-text {
+	color:white;
+	font-size: 20px;
+	position: absolute;
+	top:50%;
+	left:50%;
+	text-align: center;
+	transform : translate(-50%,-50%);
+}
+	
 </style>
+
+
+
+
 <script>
 	$(function() {
-		$("#p_image").click(function() {
-			if (confirm("이미지를 삭제할까요")) {
+		$("#img-delete").click(function() {
+			if (confirm("대표 이미지를 삭제할까요")) {
 				let p_code = $("#p_code").val()
 				document.location.href 
-					= "${rootPath}/imgDelete?p_code=" + p_code
+					= "${rootPath}/proImgDelete?p_code=" + p_code
 			}
 		})
 	})
@@ -128,24 +163,33 @@ div#p_list {
 					aceept=".xls|.xlsx" : excel 파일
 					*/
 					%>
-
 					<div class="form-group">
 						<input type="hidden" 
 							name="p_file" 
 							id="p_file"> 
-						<label></label>
+						<label>대표이미지</label>
+						<input type="file" 
+							class="form-controller" 
+							name="u_file"
+							accept="image/*"
+							id="u_file">
+					</div>
+
+					<div class="form-group">
+						<label>보조이미지</label>
 						<input type="file" 
 							class="form-controller" 
 							name="u_files"
 							multiple="multiple"
 							accept="image/*"
-							id="u_file">
+							id="u_files">
 					</div>
-					<div class="form-group">
-						<img src="${rootPath}/files/noimage.png" id="p_image"
-							width="200px" height="200px">
+					<div class="form-group container">
+						<img src="${rootPath}/files/noimage.png" width="70%" id="p_image">
+						<div class="imgMenu" id="img-delete">
+							<div class='img-text'>이미지삭제</div>
+						</div>
 					</div>
-
 					<button type="reset" class="btn btn-warning">새로작성</button>
 					<button type="submit" class="btn btn-primary">저장</button>
 				</form>

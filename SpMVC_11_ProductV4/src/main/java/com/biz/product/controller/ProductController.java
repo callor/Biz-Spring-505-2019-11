@@ -53,8 +53,15 @@ public class ProductController {
 			@ModelAttribute
 			ProductDTO proDTO,
 			
+			@RequestParam("u_file")
+			MultipartFile u_file,
+			
 			// 다수의 파일 업로드 정보를 수신
+			// @RequestParam 붙이면 400 오류
 			MultipartHttpServletRequest u_files) {
+		
+		
+		log.debug("멀티파일 개수 : " + u_files.getFile("u_files").getSize());
 		
 		// 파일리스트만 추출
 		List<MultipartFile> fs = u_files.getFiles("u_files");
@@ -68,6 +75,24 @@ public class ProductController {
 			log.debug("파일이름 : " + f.getOriginalFilename());
 		}
 		
+		/*
+		 *  대표이미지가 업로드 되었을때
+		 */
+		try {
+
+			String profileImage = fService.fileUp(u_file);
+			if(profileImage != null) {
+				if(proDTO.getP_file() != null) {
+					fService.fileDelete(proDTO.getP_file());
+				}
+				proDTO.setP_file(profileImage);
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			log.debug("대표이미지 업로드 오류:" + e.getMessage());
+		}
+		
 		// 파일 업로드 수행후 파일리스트를 받음
 		List<ProFileDTO> upFileList = fService.filesUp(u_files);
 		
@@ -77,36 +102,38 @@ public class ProductController {
 			log.debug("새로운 상품등록");
 			
 			// 상품정보와 파일 리스트를 insert() method에 전달
-			ret = pService.insert(proDTO,upFileList);
-			
 			// insert 실행
+			ret = pService.insert(proDTO,upFileList);	
 			
 		} else {
 			log.debug("기존 상품변경");
 			// update 실행
 			
-			// 변경할 상품정봐 파일리스트를 update() method에 전달
-			ret = pService.update(proDTO,upFileList);
+			// 변경할 상품정보 파일리스트를 update() method에 전달
+			ret = pService.update(proDTO,upFileList);	
 		}
 		
 		return "redirect:/plist";
 	
 	}
 	
-	@RequestMapping(value="imgDelete",method=RequestMethod.GET)
+	// 대표이미지 삭제
+	@RequestMapping(value="proImgDelete",method=RequestMethod.GET)
 	public String imgDelete(String p_code) {
-		/*
-		ProductDTO proDTO = pService.findByPCode(p_code);
-		if(proDTO.getP_file() != null && 
-				!proDTO.getP_file().isEmpty()) {
 
-			fService.fileDelete(proDTO.getP_file());
-			proDTO.setP_file(null);
-			// pService.update(proDTO);
-		}
-		*/
+		pService.proImgDelete(p_code);
 		return "redirect:/plist";
 	}
+	
+	
+	@RequestMapping(value="subImgDelete",method=RequestMethod.GET)
+	public String subImgDelete(String file_seq) {
+		
+		pService.subImgDelete(file_seq);
+		return "redirect:/plist";
+	}
+	
+	
 	/*
 	 * 결과물을 view(*.jsp)로 변환하지 않고
 	 * 문자열그대로 또는

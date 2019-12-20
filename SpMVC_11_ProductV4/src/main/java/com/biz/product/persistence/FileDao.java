@@ -22,6 +22,10 @@ public interface FileDao {
 	// 다수의 파일을 삭제
 	// 여러개의 파일을 선택한 후 삭제
 	public void filesDelete(List<ProFileDTO> files) ;
+
+	public ProFileDTO findByFileSeq(String file_seq);
+
+	public int fileDelete(String file_seq);
 	
 	// 상품정보가 삭제되었을때 삭제 
 	// 상품테이블과 파일테이블을 외래키 연관을 해두면

@@ -20,6 +20,9 @@ public class ProductSerivce {
 	@Autowired
 	SqlSession sqlSession;
 	
+	@Autowired
+	FileService fService;
+	
 	ProductDao proDao;
 	FileDao fileDao;
 	
@@ -30,6 +33,7 @@ public class ProductSerivce {
 	}
 	
 	public ProductDTO findByPCode(String p_code) {
+		
 		ProductDTO proDTO = proDao.findByPCode(p_code);
 		log.debug("상품정보 : " + proDTO.toString());
 		
@@ -106,13 +110,53 @@ public class ProductSerivce {
 	}
 
 	public int update(ProductDTO proDTO) {
-		String p_code = proDTO.getP_code();
 		return proDao.update(proDTO);
 	}
 	
 	public int update(ProductDTO proDTO, List<ProFileDTO> upFileList) {
-		String p_code = proDTO.getP_code();
-		fileDao.filesInsert(upFileList,p_code);
+		
+		if(upFileList != null) {
+			String p_code = proDTO.getP_code();
+			fileDao.filesInsert(upFileList,p_code);
+		}
 		return proDao.update(proDTO);
 	}
+
+	// sub file 삭제
+	// 1. tbl_files 에서 file_seq에 해당하는 이미지 파일 정보를 가져오기
+	// 2. 이미지 파일을 삭제하고
+	// 3. 이미지 파일이 삭제가 완료되면 table에서 파일 정보를 제거
+	public String subImgDelete(String file_seq) {
+
+		//1
+		ProFileDTO proFileDTO = fileDao.findByFileSeq(file_seq);
+		String file_name = proFileDTO.getFile_upload_name(); // 파일이름
+		String p_code = proFileDTO.getFile_p_code(); // 상품코드
+		
+		//2
+		fService.fileDelete(file_name);
+		
+		//3 table 정보 제거
+		fileDao.fileDelete(file_seq);
+		return p_code;
+		
+	}
+
+	// 상품코드를 매개변수로 받아서
+	// 대표이미지와 이미지 정보를 제거
+	public void proImgDelete(String p_code) {
+		ProductDTO proDTO = proDao.findByPCode(p_code);
+		if(proDTO.getP_file() != null && 
+				!proDTO.getP_file().isEmpty()) {
+			fService.fileDelete(proDTO.getP_file());
+			proDTO.setP_file(null);
+			proDao.update(proDTO);
+		}
+	}
+
 }
+
+
+
+
+

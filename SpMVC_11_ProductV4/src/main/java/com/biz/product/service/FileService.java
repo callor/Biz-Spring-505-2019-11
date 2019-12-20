@@ -6,12 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.biz.product.domain.ProFileDTO;
+import com.biz.product.persistence.FileDao;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,6 +21,15 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class FileService {
 
+	@Autowired
+	SqlSession sqlSession;
+	
+	FileDao fileDao;
+	
+	@Autowired
+	public void fileDao() {
+		this.fileDao = sqlSession.getMapper(FileDao.class);
+	}
 
 	@Autowired
 	String winFilePath;
@@ -49,6 +60,8 @@ public class FileService {
 	 * List에 추가한 후 파일이름들 List를 Controller로 return
 	 */
 	public List<ProFileDTO> filesUp(MultipartHttpServletRequest u_files) {
+		
+		if(u_files.getFile("u_files").getSize() < 1) return null;
 		
 		List<ProFileDTO> upFileList = new ArrayList<ProFileDTO>();
 		
@@ -157,4 +170,9 @@ public class FileService {
 			log.debug("삭제할 파일이 없음");
 		}
 	}
+
+	public ProFileDTO findByFileSeq(String file_seq) {
+		return fileDao.findByFileSeq(file_seq);
+	}
+
 }
