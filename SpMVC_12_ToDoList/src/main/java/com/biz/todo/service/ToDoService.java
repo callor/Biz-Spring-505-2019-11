@@ -26,6 +26,8 @@ public interface ToDoService {
 	public int insert(ToDoList toDoList);
 	public int update(ToDoList toDolist);
 	public int delete(long tdSeq);
+	public int complete(String strSeq, String tdComplete);
+	public int alarm(String strSeq, String tdAlarm);
 	
 	
 }

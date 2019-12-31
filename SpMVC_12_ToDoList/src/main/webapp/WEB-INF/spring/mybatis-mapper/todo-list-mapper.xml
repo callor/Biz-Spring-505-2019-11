@@ -17,7 +17,6 @@
 			TD_SUBJECT,
 			TD_TEXT,
 			TD_FLAG,
-			TD_COMPLETE,
 			TD_ALARM
 		) VALUES (	
 			SEQ_TODO.NEXTVAL,
@@ -26,10 +25,22 @@
 			#{tdSubject,jdbcType=VARCHAR},
 			#{tdText,jdbcType=VARCHAR},
 			#{tdFlag,jdbcType=VARCHAR},
-			#{tdComplete,jdbcType=VARCHAR},
 			#{tdAlarm,jdbcType=VARCHAR}
 		)
  	</insert>
+ 	
+ 	<update id="complete">
+ 		UPDATE tbl_todolist
+ 		SET td_complete = DECODE(td_complete,'Y','N','Y') 
+ 		WHERE td_seq = #{tdSeq}
+ 	</update>
+ 	
+ 	<update id="alarm">
+ 		UPDATE tbl_todolist
+ 		SET td_alarm= DECODE(td_alarm,'Y','N','Y') 
+ 		WHERE td_seq = #{tdSeq}
+ 	</update>
+ 	
  	<update id="update"></update>
  	<delete id="delete"></delete>
  

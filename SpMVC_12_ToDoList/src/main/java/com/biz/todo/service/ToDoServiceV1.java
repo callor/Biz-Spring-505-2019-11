@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.biz.todo.domain.ToDoList;
 import com.biz.todo.repository.ToDoListDao;
 
-@Service
+@Service("toServiceV1")
 public class ToDoServiceV1 implements ToDoService {
 
 	/*
@@ -27,7 +27,7 @@ public class ToDoServiceV1 implements ToDoService {
 	 * 직접 dao를 사용하여 method를 호출할수 있다. 
 	 */
 	@Autowired
-	ToDoListDao toDao;
+	protected ToDoListDao toDao;
 	
 	@Override
 	public List<ToDoList> selectAll() {
@@ -43,6 +43,16 @@ public class ToDoServiceV1 implements ToDoService {
 		
 		String curDate = sd.format(date); // 문자열형 날짜 생성
 		String curTime = st.format(date); // 문자열형 시간 생성
+		
+		String strTdComp = toDoList.getTdComplete();
+		if(strTdComp == null || strTdComp.isEmpty()) {
+			toDoList.setTdComplete("N");
+		}
+
+		String strTdAlarm = toDoList.getTdAlarm();
+		if(strTdAlarm == null || strTdAlarm.isEmpty()) {
+			toDoList.setTdAlarm("N");
+		}
 		
 		toDoList.setTdDate(curDate);
 		toDoList.setTdTime(curTime);
@@ -72,6 +82,17 @@ public class ToDoServiceV1 implements ToDoService {
 	@Override
 	public int delete(long tdSeq) {
 		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int complete(String strSeq,String tdComplete) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int alarm(String strSeq, String tdAlarm) {
 		return 0;
 	}
 

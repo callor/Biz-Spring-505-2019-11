@@ -3,12 +3,13 @@ package com.biz.todo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.biz.todo.domain.ToDoList;
 import com.biz.todo.service.ToDoService;
@@ -17,6 +18,7 @@ import com.biz.todo.service.ToDoService;
 public class ToDoController {
 
 	@Autowired
+	@Qualifier("toServiceV2")
 	ToDoService toService;
 	
 	@RequestMapping(value="list", method=RequestMethod.GET)
@@ -45,4 +47,32 @@ public class ToDoController {
 		return "redirect:/list";
 	}
 	
+	@RequestMapping(value="complete",method=RequestMethod.GET)
+	public String complete(
+			@RequestParam("tdSeq") String strSeq,
+			@RequestParam("tdComplete") String tdComplete) {
+		
+		toService.complete(strSeq,tdComplete);
+		return "redirect:/list";
+	}
+
+	@RequestMapping(value="alarm",method=RequestMethod.GET)
+	public String alam(
+			@RequestParam("tdSeq") String strSeq,
+			@RequestParam("tdAlarm") String tdAlarm) {
+		
+		toService.alarm(strSeq,tdAlarm);
+		return "redirect:/list";
+	}
+
+	
+	
 }
+
+
+
+
+
+
+
+
