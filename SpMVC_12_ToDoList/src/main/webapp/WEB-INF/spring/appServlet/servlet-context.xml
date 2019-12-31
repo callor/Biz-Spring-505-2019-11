@@ -29,7 +29,19 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.biz.todo.controller" />
+	<!-- scan할 pageckage를 문자열 배열로 주입 -->
+	<context:component-scan 
+		base-package="com.biz.todo.controller, com.biz.todo.service"/>
+	
+	<!-- 
+	<context:component-scan base-package="com.biz.todo" 
+					use-default-filters="false">
+		<context:include-filter type="annotation" 
+				expression="org.springframework.stereotype.Controller"/>
+		<context:include-filter type="annotation" 
+				expression="org.springframework.stereotype.Service"/>
+	</context:component-scan>
+	 -->
 	
 	
 </beans:beans>
