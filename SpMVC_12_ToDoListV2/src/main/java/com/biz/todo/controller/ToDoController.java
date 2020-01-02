@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.biz.todo.common.ToDoAnn;
 import com.biz.todo.domain.ToDoList;
 import com.biz.todo.service.ToDoService;
 
@@ -40,7 +41,8 @@ public class ToDoController {
 	}
 	
 	@RequestMapping(value="list",method=RequestMethod.POST)
-	public String insert(@ModelAttribute ToDoList toDoList,
+	public String insert(
+					@ModelAttribute ToDoList toDoList,
 					Model model) {
 		
 		int ret = toService.insert(toDoList);
@@ -82,6 +84,28 @@ public class ToDoController {
 	
 	}
 	
+	
+	@RequestMapping(value="update",method=RequestMethod.GET)
+	public String update(
+			@RequestParam("tdSeq")
+			String strSeq,Model model) {
+		
+		long tdSeq = Long.valueOf(strSeq);
+		ToDoList toDTO = toService.findBySeq(tdSeq);
+		model.addAttribute("todoDTO",toDTO);
+		
+		List<ToDoList> tdList = toService.selectAll();
+		model.addAttribute("todoList",tdList);
+		
+		return "home";
+	
+	}
+	
+	@RequestMapping(value="update",method=RequestMethod.POST)
+	public String update(ToDoList toList,Model model) {
+		toService.update(toList);
+		return "redirect:/list";
+	}
 }
 
 

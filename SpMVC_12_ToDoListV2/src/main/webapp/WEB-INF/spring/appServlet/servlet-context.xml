@@ -10,8 +10,12 @@
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
-	<annotation-driven />
+	<annotation-driven>
+		<argument-resolvers>
+		</argument-resolvers>
+	</annotation-driven>
 	
+		
 	<!-- 
 	<beans:bean 
 	class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">
