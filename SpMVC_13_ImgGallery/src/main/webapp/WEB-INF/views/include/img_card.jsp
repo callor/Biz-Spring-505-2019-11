@@ -3,8 +3,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 
-<div class="img_panel img_card">
-	<img src="${rootPath}/images/main_img.jpg" height="90%">
-	<p>이미지보기</p>
+<div class="img_panel img_card"
+		data-seq="${img.img_seq}" 
+		data-file="${img.img_file}">
+	<img src="${rootPath}/images/${img.img_file}" height="80%">
+	<div>
+		<h4>${img.img_title}</h4>
+	</div>
 </div>
 

@@ -14,6 +14,9 @@
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script>
 <script src="${rootPath}/javascript/summernote-ko-KR.js" type="text/javascript"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.9.0/jquery.contextMenu.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.9.0/jquery.contextMenu.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.9.0/jquery.ui.position.min.js"></script>
 
 
 <style>
@@ -99,6 +102,9 @@
 		align-items: center;
 	}
 
+	#img_view {
+		display: none;
+	}
 
 </style>
 <script>
@@ -163,7 +169,17 @@ $(function(){
 			contentType:false, /* 파일업로드 필수 옵션 */
 			
 			success : function(result) {
-				alert(result)
+				if(result == 'FAIL') {
+					alert("파일 업로드 오류")
+				} else {
+					$("#img_file").val(result)
+					$("#img_view").css("display","block")
+					$("#img_view").attr("src",'${rootPath}/images/' + result)
+					
+					$("#d_d_box h3").text("파일업로드 성공!!")
+					$("#d_d_box h3").css("display","none")
+				
+				}
 			},
 			error:function() {
 				alert("서버 통신 오류")
@@ -171,8 +187,14 @@ $(function(){
 		})
 		return false
 	})
-
 	
+	$.contextMenu({
+		selector:'.img_card',
+		items : {
+			'edit' : {name:'수정',icon:'edit'},
+			'delete' : {name:'삭제',icon:'delete'}
+		}
+	})
 	
 })
 
@@ -191,7 +213,7 @@ $(function(){
 </section>
 
 <section id="img_box">
-	<c:forEach begin="1" end="10">
+	<c:forEach items="${imgList}" var="img">
 		<%@ include file="/WEB-INF/views/include/img_card.jsp" %>
 	</c:forEach>
 </section>
