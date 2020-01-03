@@ -7,17 +7,23 @@
 	<fieldset>
 
 		<legend>이미지 갤러리 작성</legend>
-		<div>
+		<div class="input_box">
 			<form:input type="text" 
 				path="img_title"
 				placeholder="제목을 입력하세요" />
 		</div>
-		<div>
+		<div class="input_box">
 			<form:textarea
 				path="img_text"
 				placeholder="제목을 입력하세요"/>
 		</div>
-		<div>
+		<div class="input_box">
+			<form:hidden path="img_file"/>
+			<div id="d_d_box">
+				<h3>이미지를 올려놓으세요</h3>
+			</div>
+		</div>
+		<div class="input_box">
 			<button class="bz-button">저장</button>
 		</div>
 
