@@ -132,6 +132,12 @@
 
 </style>
 <script>
+	// js파일에서 사용할 public 변수 선언
+	var rootPath = "${rootPath}"
+</script>
+<script src="${rootPath}/javascript/image_upload.js"></script>
+<script src="${rootPath}/javascript/images_upload.js"></script>
+<script>
 $(function(){
 	
 	var toolbar = [
@@ -174,42 +180,35 @@ $(function(){
 		// drop한 파일리스트 추출
 		let files = e.originalEvent
 						.dataTransfer.files
+		let fileLen = files.length
 						
-		// 리스트에서 첫번째 파일만 추출				
-		let file = files[0]	
-		
-		// 추출된 파일정보를 서버에 먼저 업로드
-		
-		// js FormData 클래스를 
-		// 사용해서 서버에 파일 업로드 준비
-		let formData = new FormData()
-		formData.append('file',file)
-		
-		$.ajax({
-			url : '${rootPath}/rest/file_up',
-			method:'POST',
-			data:formData,
-
-			processData:false, /* 파일업로드 필수 옵션 */
-			contentType:false, /* 파일업로드 필수 옵션 */
+		if(fileLen > 1) {
 			
-			success : function(result) {
-				if(result == 'FAIL') {
-					alert("파일 업로드 오류")
-				} else {
-					$("#img_file").val(result)
-					$("#img_view").css("display","block")
-					$("#img_view").attr("src",'${rootPath}/images/' + result)
-					
-					$("#d_d_box h3").text("파일업로드 성공!!")
-					$("#d_d_box h3").css("display","none")
-				
-				}
-			},
-			error:function() {
-				alert("서버 통신 오류")
+			// 파일업로드를 위한 객체만들기
+			let formData = new FormData()
+			
+			// Drop한 파일들을 모두 추가
+			for(let i = 0; i < files.length; i++){
+				formData.append('files',files[i])
 			}
-		})
+			
+			files_up(formData)
+			return false;
+		
+		} else {				
+
+			// 리스트에서 첫번째 파일만 추출				
+			let file = files[0]	
+			
+			// 추출된 파일정보를 서버에 먼저 업로드
+			
+			// js FormData 클래스를 
+			// 사용해서 서버에 파일 업로드 준비
+			let formData = new FormData()
+			formData.append('file',file)
+			
+			file_up(formData)
+		}
 		return false
 	})
 	

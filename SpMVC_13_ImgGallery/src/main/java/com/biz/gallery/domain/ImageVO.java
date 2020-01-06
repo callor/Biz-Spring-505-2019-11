@@ -1,5 +1,7 @@
 package com.biz.gallery.domain;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,5 +21,8 @@ public class ImageVO {
 	private String img_title;
 	private String img_text;
 	private String img_file;
+	
+	// 같은이름으로 생성된 input box에 담긴 값을 수신하기
+	private List<String> img_files;
 	
 }

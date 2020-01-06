@@ -1,5 +1,6 @@
 package com.biz.gallery.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,13 +8,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.biz.gallery.domain.ImageVO;
 import com.biz.gallery.service.ImageService;
@@ -66,7 +68,6 @@ public class ImgController {
 		
 		imService.insert(imageVO);
 		status.setComplete();
-		
 		return "redirect:/image/list";
 		
 	}
@@ -141,6 +142,21 @@ public class ImgController {
 
 		status.setComplete();
 		return ret + "";
+	
+	}
+	
+	/*
+	 * MultipartHttpServletRequest
+	 * 다중파일 수신하기
+	 */
+	@RequestMapping(value="/files_up",method=RequestMethod.POST)
+	public String files_up(
+			MultipartHttpServletRequest mFiles,
+			Model model) {
+		
+		List<String> fileNames = imService.files_up(mFiles);
+		model.addAttribute("imgList",fileNames);
+		return "include/img_card_box";
 	
 	}
 
