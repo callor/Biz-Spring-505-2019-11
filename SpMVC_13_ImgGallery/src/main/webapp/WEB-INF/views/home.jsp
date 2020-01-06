@@ -14,6 +14,7 @@
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script>
 <script src="${rootPath}/javascript/summernote-ko-KR.js" type="text/javascript"></script>
+
 <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.9.0/jquery.contextMenu.min.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.9.0/jquery.contextMenu.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.9.0/jquery.ui.position.min.js"></script>
@@ -37,7 +38,13 @@
 		color:white;
 	}
 	
+	section {
+		width:90%;
+		margin:10px auto;
+	}
+	
 	#img_box {
+		margin:10px auto;
 		border:1px solid green;
 		display: flex;
 		flex-wrap: wrap;
@@ -54,10 +61,22 @@
 		width:200px;
 		height: 200px;
 		margin:10px;
+		/* 이미지가 card box보다 클때 이미지 자르기 */
+		overflow : hidden;
+		
+		display:flex;
+		justify-content:center;
+		flex-flow : column;
 		
 		box-shadow: 0 4px 10px 0 rgba(0,0,0,0.16),
  		0 4px 20px 0 rgba(0,0,0,0.19)
 	}
+	
+	.img_card .img_title {
+		padding:0.5rem;
+		text-align: center;
+	}
+	
 	
 	.bz-button {
 		border:none;
@@ -76,6 +95,11 @@
 	.bz-button:hover {
 		box-shadow: 0 8px 16px rgba(0,0,0,0.2),
 			0 6px 20px 0 rgba(0,0,0,0.2)
+	}
+	
+	a {
+		text-decoration: none;
+		color:inherit;
 	}
 	
 	div.input_box {
@@ -128,7 +152,8 @@ $(function(){
 		placeholder:'본문을 입력하세요',
 		width:'100%',
 		toolbar:toolbar,
-		height:'200px'
+		height:'200px',
+		disableDragAndDrop : true
 	})
 	
 	$("#btn_img_up").click(function(){
@@ -188,13 +213,58 @@ $(function(){
 		return false
 	})
 	
+	var contextCallBack = function(key,options) {
+		if(key == 'edit') {
+			let img_seq = $(this).attr("data-seq");
+			document.location.href ="${rootPath}/image/update/" + img_seq
+			// alert("수정 클릭" + $(this).attr("data-seq"))
+		}
+		
+		if(key == 'delete') {
+			if(confirm("이미지를 삭제할까요?")) {
+				let img_seq = $(this).attr("data-seq");
+				
+				$.ajax({
+					url : "${rootPath}/image/delete",
+					// data : img_seq
+					// data : img_seq = 3
+					data : {img_seq : img_seq},
+					type:'POST',
+					success : function(result) {
+						if(result < 1)
+							alert("삭제도중 문제발생")
+					},
+					error : function() {
+						alert("서버 통신오류")
+					}
+				})
+				document.location.replace("${rootPath}/")
+				
+				// 이벤트 버블링 금지
+				return false;
+				// document.location.href ="${rootPath}/image/delete/" + img_seq
+				
+			}
+		}
+	}
+	
+	/*
+	jqueury 응용 
+	마우스를 제어 해서 context menu(오른쪽마우스 클릭 메뉴)를
+	만들어주는 tool
+	
+	*/
 	$.contextMenu({
 		selector:'.img_card',
+		callback : contextCallBack,
 		items : {
 			'edit' : {name:'수정',icon:'edit'},
 			'delete' : {name:'삭제',icon:'delete'}
 		}
+		
 	})
+	
+
 	
 })
 

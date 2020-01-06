@@ -24,10 +24,19 @@
 				<img id="img_view" height="95%">
 			</div>
 		</div>
+		
+		<c:if test="${!empty imageVO.img_file}">
+			<div class="input_box">
+				<img src="${rootPath}/images/${imageVO.img_file}" width="100px">
+			</div>	
+		</c:if>
+		
 		<div class="input_box">
 			<button class="bz-button">저장</button>
+			<button	class="bz-button" 
+				type="button">
+				<a href="${rootPath}/">리스트보기</a></button>
 		</div>
-
 	</fieldset>
 
 </form:form>

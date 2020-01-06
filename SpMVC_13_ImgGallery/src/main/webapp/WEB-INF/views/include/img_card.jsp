@@ -6,8 +6,15 @@
 <div class="img_panel img_card"
 		data-seq="${img.img_seq}" 
 		data-file="${img.img_file}">
-	<img src="${rootPath}/images/${img.img_file}" height="80%">
-	<div>
+		
+	<c:if test="${empty img.img_file}">	
+		<img src="${rootPath}/images/noimage.png" width="100%" height="80%">
+	</c:if>
+	<c:if test="${!empty img.img_file}">	
+		<img src="${rootPath}/images/${img.img_file}" width="100%" height="80%">
+	</c:if>
+
+	<div class="img_title">
 		<h4>${img.img_title}</h4>
 	</div>
 </div>
