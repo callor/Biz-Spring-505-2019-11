@@ -89,27 +89,27 @@ $(function(){
 		document.location.href="${rootPath}/member/join"
 	})
 	
-	$("btn-login").click(function(){
+	$("#btn-login").click(function(){
 		
+		/*
 		var params = $("form").serialize();
 		$.ajax({
 			url : "${rootPath}/member/login",
 			type:'POST',
 			data:params,
-			dataType:'json',
 			success:function(result) {
+				document.location.href = document.location.href
 				alert(result)
 			}
 		})
-		
-		/*
-		$.post("${rootPath}/member/login",
-				{ $("form").serialize() },
-				function(result) {
-					alert(result)
-				}
-		})
 		*/
+		$.post("${rootPath}/member/login",
+				$("form").serialize(),
+				function(result) {
+					document.location.href = document.location.href
+					// alert(result)
+				}
+		)
 	})
 })
 </script>
@@ -130,7 +130,7 @@ $(function(){
 		
 		<input type="text" name="u_id" placeholder="사용자 ID">
 		<input type="password" name="u_password" placeholder="비밀번호">
-		<button type="submit" id="btn-login">로그인</button>
+		<button type="button" id="btn-login">로그인</button>
 		<button type="button" id="btn-join">회원가입</button>
 		
 	</form>
