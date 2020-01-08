@@ -35,7 +35,9 @@
 			<div class="input_box">
 				<div class="img_list">
 				<c:forEach items="${imageVO.img_files}" var="img">
-					<div class="img_view" data-id="${img.img_file_seq}">
+					<div class="img_view" 
+							data-id="${img.img_file_seq}"
+							data-pcode="${imageVO.img_seq}">
 						<img src="${rootPath}/images/${img.img_file_upload_name}">		
 					</div>
 				</c:forEach>

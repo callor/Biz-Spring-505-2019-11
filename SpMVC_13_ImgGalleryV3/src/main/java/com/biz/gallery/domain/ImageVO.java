@@ -27,8 +27,10 @@ public class ImageVO {
 	private List<String> img_file_upload_name;
 	
 	// 1. DB table에서 파일정보를 select했을 때 담을 변수
+	private List<ImageFilesVO> img_files;
+
 	// 2. form에서 파일들을 업로드하기 위한 
 	//    정보를 담을 변수로 활용
-	private List<ImageFilesVO> img_files;
+	private List<ImageFilesVO> img_up_files;
 
 }

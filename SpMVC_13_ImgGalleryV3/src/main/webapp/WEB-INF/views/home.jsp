@@ -142,6 +142,17 @@
 		height: 100px;
 		margin: 5px;
 	}
+	
+	#login_modal {
+		display: none;
+		position: fixed;
+		top:0;
+		left: 0;
+		width:100%;
+		height: 100%;
+		z-index: 5;
+		background-color: rgba(0,0,0,0.3);
+	}
 
 </style>
 <script>
@@ -246,12 +257,14 @@ $(function(){
 					success : function(result) {
 						if(result < 1)
 							alert("삭제도중 문제발생")
+						else
+							document.location.replace("${rootPath}/")
 					},
 					error : function() {
 						alert("서버 통신오류")
 					}
 				})
-				document.location.replace("${rootPath}/")
+				
 				
 				// 이벤트 버블링 금지
 				return false;
@@ -278,7 +291,10 @@ $(function(){
 	})
 	
 	var img_context = function(key,option) {
+		
+		// img_file_seq 값
 		let id = $(this).attr("data-id")
+
 		if(key == "delete") {
 			if(confirm(id + " 이미지를 삭제할까요")) {
 				$.post("${rootPath}/rest/image_delete",
@@ -296,6 +312,33 @@ $(function(){
 			}
 		} else if (key == "copy") {
 			
+			window.open("${rootPath}/rest/file_down/" + id,target="_new")
+			
+		} else if (key == "main") {
+			// 게시물의 seq 값 가져오기
+			let img_pcode = $(this).attr("data-pcode")
+			// 현재 클릭된(div) tag가 포함하고 있는 tag들 중에
+			// img tag 를 찾아서
+			// src값을 가져와라 : "이미지 이름"
+			let img_src = $(this).find("img").attr("src")
+			
+			// 전체 src 값에서 파일이름만 추출하기 위해
+			// 슬래시(/) 문자를 기준으로 분해해서
+			// 분해된 배열의 제일 마지막 값을 가져오면 
+			//		=> 파일이름만
+			let img_srcs = img_src.split("/")
+			let img_srcs_len = img_srcs.length
+			let img_file = img_srcs[img_srcs_len - 1]
+			
+			$.post(
+					"${rootPath}/rest/main_image",
+					{img_pcode : img_pcode,img_file:img_file},
+					function(result) {
+						document.location.replace(document.location.href)	
+					}
+			)
+			.error(function(){ alert('통신오류')})
+			
 		} else if(key == "loading") {
 			let file = $(this).find("img").attr("src")
 			window.open(file,"target=_new")
@@ -309,9 +352,13 @@ $(function(){
 			'loading' : {name:'확대보기',icon:'loading'},
 			'copy' : {name:'다운로드',icon:'copy'},
 			'delete' : {name:'삭제',icon:'delete'},
-			'search' : {name:'검색', icon:'fas fa-search'}
+			'main' : {name:'대표이미지설정', icon:'far fa-check-circle'}
 		}
 	})
+	
+	if("${MODAL}" == 'LOGIN' || "${MODAL}" == 'JOIN') {
+		$("#login_modal").css("display","block")
+	}
 
 })
 
@@ -321,6 +368,7 @@ $(function(){
 <body>
 <header>
 	<h3>이미지 갤러리</h3>
+	<p><a href="${rootPath}/member/logout">${MEMBER.u_id}</a></p>
 </header>
 
 <c:choose>
@@ -341,6 +389,75 @@ $(function(){
 <section>
 	<button id="btn_img_up" class="bz-button">이미지 올리기</button>
 </section>
+
+<style>
+#login_modal form {
+
+	position: relative;
+	padding:10px;
+	margin:auto;
+	
+	animation-name : form-ani;
+	animation-duration : 0.9s;
+	animation-fill-mode : forwards;
+
+	/* 구글, 사파리 */
+	-webkit-animation-name : form-ani;
+	-webkit-animation-duration : 0.9s;
+	-webkit-animation-fill-mode : forwards;
+
+	/* 파이어폭스 */
+	-moz-animation-name : form-ani;
+	-moz-animation-duration : 0.9s;
+	-moz-animation-fill-mode : forwards;
+
+	/* 익스 */
+	-ms-animation-name : form-ani;
+	-ms-animation-duration : 0.9s;
+	-ms-animation-fill-mode : forwards;
+
+	/* 오페라 */
+	-o-animation-name : form-ani;
+	-o-animation-duration : 0.9s;
+	-o-animation-fill-mode : forwards;
+}
+
+/*
+ animation 실행하는 css
+*/
+@keyFrames form-ani {
+	from {
+		top:-300px;
+		opacity:0;	
+	}
+	to {
+		top:250px;
+		opacity: 1;
+	}
+}
+
+@-webkit-keyFrames form-ani {
+	from {
+		top:-300px;
+		opacity:0;	
+	}
+	to {
+	
+		top:250px;
+		opacity: 1;
+	}
+}
+	
+
+</style>
+<div id="login_modal">
+	<c:if test="${MODAL == 'JOIN'}">
+		<%@ include file="/WEB-INF/views/body/join.jsp" %>
+	</c:if>
+	<c:if test="${MODAL == 'LOGIN'}">
+		<%@ include file="/WEB-INF/views/body/login.jsp" %>
+	</c:if>
+</div>
 
 </body>
 </html>

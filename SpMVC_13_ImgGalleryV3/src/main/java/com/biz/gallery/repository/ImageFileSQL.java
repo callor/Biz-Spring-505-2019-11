@@ -1,4 +1,4 @@
-@package com.biz.gallery.repository;
+package com.biz.gallery.repository;
 
 import org.apache.ibatis.jdbc.SQL;
 

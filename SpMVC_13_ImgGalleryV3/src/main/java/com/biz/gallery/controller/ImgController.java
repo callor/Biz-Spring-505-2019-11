@@ -2,8 +2,9 @@ package com.biz.gallery.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,8 +19,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.biz.gallery.domain.ImageFilesVO;
 import com.biz.gallery.domain.ImageVO;
-import com.biz.gallery.service.ImageService;
-import com.biz.gallery.service.ImageServiceV2;
+import com.biz.gallery.domain.MemberVO;
+import com.biz.gallery.service.ImageServiceV3;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,10 +30,10 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class ImgController {
 	
-	ImageServiceV2 imService;
+	ImageServiceV3 imService;
 	
 	@Autowired
-	public ImgController(ImageServiceV2 imService) {
+	public ImgController(ImageServiceV3 imService) {
 		this.imService = imService;
 	}
 	
@@ -55,7 +56,16 @@ public class ImgController {
 			method=RequestMethod.GET)
 	public String upload(
 			@ModelAttribute("imageVO") ImageVO imageVO,
-			Model model) {
+			Model model,HttpSession httpSession) {
+		
+		MemberVO member = (MemberVO) httpSession.getAttribute("MEMBER");
+		if(member == null) {
+			
+			model.addAttribute("MODAL","LOGIN");
+			return "home";
+			
+		}
+		
 		log.debug("이미지 업로드 시작!!");
 		
 		imageVO = new ImageVO();
@@ -93,6 +103,8 @@ public class ImgController {
 		
 		ImageVO imgVO = imService.findBySeq(img_seq);
 		
+		log.debug("Update Get: " + imgVO.getImg_files().toString());
+		
 		model.addAttribute("BODY","UPLOAD");
 		model.addAttribute("imageVO",imgVO);
 		return "home";
@@ -105,6 +117,8 @@ public class ImgController {
 			@ModelAttribute("imageVO") ImageVO imageVO,
 			SessionStatus status) {
 
+		log.debug("Update Post : " + imageVO.getImg_files().toString());
+		
 		// 이미지 이름이 기존의 이미지와 다르면 기존 이미지를 삭제
 		// 서비스에 해당 기능 구현
 		int ret = imService.update(imageVO);

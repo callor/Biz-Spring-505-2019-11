@@ -12,7 +12,8 @@ var files_up = function(formData) {
 			if (result == 'FAIL') {
 				alert("파일 업로드 오류")
 			} else {
-				$("#d_d_box").html(result)	
+				$("#d_d_box").html(result)
+				$("#img_file").val("update")
 			}
 		},
 		error : function() {

@@ -18,25 +18,7 @@ public class ImageServiceV2 extends ImageService {
 		super(imDao, ifService, fService);
 	}
 	
-	@Override
-	public int insert(ImageVO imageVO) {
-		List<ImageFilesVO> imgFiles 
-				= imageVO.getImg_files();
-		if(imgFiles != null && imgFiles.size()>0) {
-			imageVO.setImg_file(imgFiles.get(0).getImg_file_upload_name());
-			for(ImageFilesVO ifVO : imgFiles) {
-				ifVO.setImg_file_origin_name(
-						ifVO.getImg_file_upload_name().substring(36)
-				);
-			}
-		}
-		
-		int ret = imDao.insert(imageVO);
-		long img_pcode = imageVO.getImg_seq();
-		ifService.imageFileInsert(imgFiles,img_pcode);
 	
-		return ret;
-	}
 
 	@Override
 	public int update(ImageVO imageVO) {

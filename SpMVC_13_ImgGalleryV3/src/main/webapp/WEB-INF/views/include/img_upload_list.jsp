@@ -20,7 +20,7 @@
 			var="img" 
 			varStatus="imgs">
 			
-		<input type="hidden" name="img_files[${imgs.index}].img_file_upload_name" value="${img.img_file_upload_name}">
+		<input type="hidden" name="img_up_files[${imgs.index}].img_file_upload_name" value="${img.img_file_upload_name}">
 		<div class="img_view" data-id="${img.img_file_seq}">
 			<img src="${rootPath}/images/${img.img_file_upload_name}">		
 		</div>

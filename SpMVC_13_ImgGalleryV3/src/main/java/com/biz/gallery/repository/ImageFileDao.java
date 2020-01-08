@@ -18,7 +18,7 @@ public interface ImageFileDao {
 	@Select("SELECT * FROM tbl_images "
 			+ "WHERE img_file_seq = #{img_seq}")
 	public ImageFilesVO findBySeq(long img_seq);
-
+	
 	public List<ImageFilesVO> findByPCode(long img_p_code);
 	
 	@Delete("DELETE FROM tbl_images WHERE img_file_seq = #{img_seq}")
