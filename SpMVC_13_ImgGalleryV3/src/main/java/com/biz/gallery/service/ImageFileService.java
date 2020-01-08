@@ -31,8 +31,10 @@ public class ImageFileService {
 						List<ImageFilesVO> img_files,
 						long img_p_code) {
 		
+		if(img_files == null) return -1;
 		int ret = ifDao.bulk_insert(img_files,img_p_code);
 		return ret;
+		
 	}
 
 	public ImageFilesVO findBySeq(String img_id) {
