@@ -100,7 +100,7 @@ public class ImgRestController {
 		String downFileName = imgFVO.getImg_file_upload_name();
 		
 		//3. 파일 이름과 서버의 저장된 path 정보를 연결
-		File downFile = fService.find_down(downFileName);
+		File downFile = fService.file_down(downFileName);
 		if(downFile == null) return "NOT_FOUND";
 		
 		// 실제 업로드전 원래이름으로 다운로드를 실행할수 있도록 준비

@@ -72,7 +72,7 @@ public class FileService {
 	 * 서버에 파일이 저장된 path와 파일이름을 결합하여
 	 * down load가 가능한 File 객체를 생성하여 return
 	 */
-	public File find_down(String downFileName) {
+	public File file_down(String downFileName) {
 
 		File file = new File(filePath,downFileName);
 		if(!file.exists()) return null;
