@@ -13,10 +13,18 @@
 		level="DEBUG" additivity="false">
 		<appender-ref ref="mylog"/>	
 	</logger>
+
 	<logger name="com.biz.gallery.service"
 		level="DEBUG" additivity="false">
 		<appender-ref ref="mylog"/>	
 	</logger>
+
+	<logger name="com.biz.gallery.interceptor"
+		level="DEBUG" additivity="false">
+		<appender-ref ref="mylog"/>	
+	</logger>
+
+
 	
 	<root level="WARN">
 		<appender-ref ref="mylog" />

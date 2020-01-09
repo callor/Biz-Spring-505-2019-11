@@ -58,13 +58,13 @@ public class ImgController {
 			@ModelAttribute("imageVO") ImageVO imageVO,
 			Model model,HttpSession httpSession) {
 		
+		/*
 		MemberVO member = (MemberVO) httpSession.getAttribute("MEMBER");
 		if(member == null) {
-			
 			model.addAttribute("MODAL","LOGIN");
 			return "home";
-			
 		}
+		*/
 		
 		log.debug("이미지 업로드 시작!!");
 		
@@ -99,7 +99,17 @@ public class ImgController {
 	@RequestMapping(value="/update/{img_seq}",method=RequestMethod.GET)
 	public String update(
 			@PathVariable("img_seq") String img_seq,
-			Model model) {
+			Model model,HttpSession httpSession) {
+		
+		// login이 되었는지 아닌지만 검사하기 위해
+		// Object 형으로 session 객체를 추출
+		/*
+		Object memberVO = httpSession.getAttribute("MEMBER");
+		if(memberVO == null) {
+			model.addAttribute("MODAL","LOGIN");
+			return "home";
+		}
+		*/
 		
 		ImageVO imgVO = imService.findBySeq(img_seq);
 		
@@ -143,10 +153,17 @@ public class ImgController {
 	@RequestMapping(value="/delete/{img_seq}",method=RequestMethod.GET)
 	public String delete(
 			@PathVariable String img_seq,
-			SessionStatus status) {
+			SessionStatus status,HttpSession httpSession,Model model) {
+		
+		// login이 되었는지 아닌지만 검사하기 위해
+		// Object 형으로 session 객체를 추출
+		Object memberVO = httpSession.getAttribute("MEMBER");
+		if(memberVO == null) {
+			model.addAttribute("MODAL","LOGIN");
+			return "home";
+		}
 		
 		int ret = imService.delete(img_seq);
-
 		status.setComplete();
 		return "redirect:/image/list";
 	
