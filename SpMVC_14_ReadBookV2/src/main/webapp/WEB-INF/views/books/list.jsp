@@ -20,7 +20,7 @@ $(function(){
 
 	// $("#btn-write").click( function() {
 	$("#btn-write").click( ()=> {
-		document.location.href="${rootPath}/rbook/insert"
+		document.location.href="${rootPath}/book/write"
 	})
 	
 })
@@ -37,29 +37,26 @@ $(function(){
 	<table id="main-table">
 		<thead>
 			<tr>
-				<th>사용자ID</th>
 				<th>도서코드</th>
 				<th>도서이름</th>
-				<th>독서일자</th>
-				<th>독서시간</th>
-				<th>한줄평</th>
-				<th>별점</th>
+				<th>출판사</th>
+				<th>저자</th>
+				<th>구입일자</th>
+				<th>가격</th>
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach begin="1" end="100">
+			<c:forEach items="${BLIST}" var="BOOK">
 			<tr>
-				<td>사용자ID</td>
-				<td>도서코드</td>
-				<td>도서이름</td>
-				<td>독서일자</td>
-				<td>독서시간</td>
-				<td>한줄평</td>
-				<td>별점</td>
+				<td>${BOOK.b_code}</td>
+				<td>${BOOK.b_name}</td>
+				<td>${BOOK.b_comp}</td>
+				<td>${BOOK.b_auther}</td>
+				<td>${BOOK.b_year}</td>
+				<td>${BOOK.b_iprice}</td>
 			</tr>
 			</c:forEach>
 		</tbody>
-	
 	</table>
 </section>
 <section>
