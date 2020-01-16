@@ -103,7 +103,6 @@ button:hover {
 	
 	width: 100%;
 	height: 100%;
-	overflow: auto;
 	
 }
 
@@ -124,6 +123,13 @@ button:hover {
 .modal-header span:hover {
 	cursor: pointer;
 	color:#000;
+}
+
+#modal-content  {
+	overflow: auto;
+	height: 80%;
+	width: 80%;
+	margin: 0 auto;
 }
 
 

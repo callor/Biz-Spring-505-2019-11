@@ -38,6 +38,15 @@ $(function(){
 		
 	})
 	
+	/*
+		input box에 내용이 있을때 focus()가 위치하면
+		내용을 전체 블럭 설정하여 다른 글자를 입력하면
+		내용이 삭제되는 기능 구현
+	*/
+	$("#rb_bname").focus(function(){
+		$(this).select()
+	})
+	
 	$("#rb_bname").keypress( function(event){
 		// enter키를 눌렀을때
 		if(event.keyCode == 13) {
@@ -48,7 +57,9 @@ $(function(){
 				return false
 			}
 			$("#modal-box").css("display","block")
-			$.post("${rootPath}/book/search","",function(result){
+			$.post("${rootPath}/book/search",
+					{strText:strText},
+					function(result){
 				$("#modal-content").html(result)
 			})
 		}

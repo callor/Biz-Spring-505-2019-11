@@ -2,13 +2,17 @@ package com.biz.rbooks.controller;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.biz.rbooks.domain.ReadBookVO;
+import com.biz.rbooks.service.ReadBookService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,7 +20,17 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping(value="/rbook")
 @Controller
 public class ReadBookController {
-
+	
+	private final ReadBookService rBookService;
+	
+	@RequestMapping(value="/list",method=RequestMethod.GET)
+	public String list(Model model) {
+		
+		List<ReadBookVO> rBookList = rBookService.selectAll();
+		model.addAttribute("RBOOKS",rBookList);
+		return "rbooks/list";
+	}
+	
 	/*
 	 * 입력화면을 보여주기 위한 method
 	 */
@@ -29,8 +43,11 @@ public class ReadBookController {
 		LocalDate localDate = LocalDate.now();
 		String curDate = localDate.toString();
 		
+		// 시간을 시:분:초 만 보이도록 설정
+		// HH : 24시간제 시간
+		DateTimeFormatter dt = DateTimeFormatter.ofPattern("HH:mm:ss");
 		LocalTime localTime = LocalTime.now();
-		String curTime = localTime.toString();
+		String curTime = localTime.format(dt).toString();
 		
 		rBookVO.setRb_date(curDate);
 		rBookVO.setRb_stime(curTime);
@@ -39,6 +56,26 @@ public class ReadBookController {
 		return "rbooks/input";
 		
 	}
+	
+	@RequestMapping(value="/insert",method=RequestMethod.POST)
+	public String insert(ReadBookVO rBookVO) {
+		
+		int ret = rBookService.insert(rBookVO);
+		return "redirect:/";
+	
+	}
+	
+	@RequestMapping(value="/view/{rb_seq}",method=RequestMethod.GET)
+	public String view(
+			@PathVariable("rb_seq") long rb_seq,Model model) {
+		
+		ReadBookVO rBookVO = rBookService.findBySeq(rb_seq);
+		model.addAttribute("RBOOK",rBookVO);
+		
+		return "rbooks/view";
+		
+	}
+	
 	
 	
 }

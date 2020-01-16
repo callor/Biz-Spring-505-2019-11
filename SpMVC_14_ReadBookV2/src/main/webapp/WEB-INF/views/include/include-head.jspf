@@ -6,7 +6,7 @@
 <link href="${rootPath}/css/rbook-main.css?ver=2020-01-16-001"
 		rel="stylesheet">
 		
-<link href="${rootPath}/css/main-table.css?ver=2020-01-14-001"
+<link href="${rootPath}/css/main-table.css?ver=2020-01-16"
 		rel="stylesheet">
 <link href="${rootPath}/css/search-table.css?ver=2020-01-16-001"
 		rel="stylesheet">

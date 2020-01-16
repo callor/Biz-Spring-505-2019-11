@@ -7,9 +7,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<%@ include file="/WEB-INF/views/include/include-head.jspf" %>
+
 <script>
 $(function(){
+	
+	$("#search-table tr").click(function(){
+		
+		let trs = $(this).children()
+		let b_code = trs.eq(0).text()
+		let b_name = trs.eq(1).text()
+		
+		$("#rb_bcode").val(b_code)
+		$("#rb_bname").val(b_name)
+		
+		$("#modal-box").css("display","none")
+		
+	})
 	
 })
 </script>

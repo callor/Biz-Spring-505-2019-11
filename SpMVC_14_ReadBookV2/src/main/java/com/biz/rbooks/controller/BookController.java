@@ -37,7 +37,9 @@ public class BookController {
 					required = false,
 					defaultValue = "") String strText, 
 						Model model) {
-		List<BookVO> bookList = bService.selectAll();
+		
+		List<BookVO> bookList = bService.findByBNames(strText);
+		
 		model.addAttribute("BLIST",bookList);
 		return "books/list-body";
 	}
