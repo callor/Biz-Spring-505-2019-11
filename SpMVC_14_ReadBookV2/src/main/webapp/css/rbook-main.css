@@ -94,7 +94,7 @@ button:hover {
 	display: none;
 	
 	position: fixed;
-	z-index: 5;
+	z-index: 10;
 	padding-top: 0;
 	
 	left:0;
@@ -126,11 +126,90 @@ button:hover {
 }
 
 #modal-content  {
+	
+	position:relative;
 	overflow: auto;
-	height: 80%;
 	width: 80%;
 	margin: 0 auto;
+	
+	background-color:gray;
+	padding:5px;
+	border-radius:20px;
+	
+	animation-name : book_box;
+	animation-duration : 0.8s;
+	animation-fill-mode : forwards;
+
+	-webkit-animation-name : book_box;
+	-webkit-animation-duration : 0.8s;
+
+	-moz-animation-name : book_box;
+	-moz-animation-duration : 0.8s;
+
+	-ms-animation-name : book_box;
+	-ms-animation-duration : 0.8s;
+	
 }
+
+@keyFrames book_box {
+	
+	from {
+		top:-400px;
+		opacity: 0;
+	}
+	to {
+		top:200px;
+		opacity: 1
+	}
+}
+
+@-webkit-keyFrames book_box {
+	
+	from {
+		top:-400px;
+		opacity: 0;
+	}
+	to {
+		top:200px;
+		opacity: 1
+	}
+}
+
+@-moz-keyFrames book_box {
+	
+	from {
+		top:-400px;
+		opacity: 0;
+	}
+	to {
+		top:200px;
+		opacity: 1
+	}
+}
+
+@-ms-keyFrames book_box {
+	
+	from {
+		top:-400px;
+		opacity: 0;
+	}
+	to {
+		top:200px;
+		opacity: 1
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -91,6 +91,15 @@ $(function(){
 		disableDragAndDrop : true
 	})
 	
+	$("#rb_star").change(function(){
+		
+		let star = $(this).val()
+		star = star * 10
+		$("span.star-red").css("width",star + "%")
+		$("span#star-v").text($(this).val())
+		
+	
+	})
 	
 })
 </script>
@@ -114,6 +123,38 @@ $(function(){
 	#rb_bcode {
 		width:50%;
 		margin-right: 5px;
+	}
+	
+	#rb_star {
+		width:60%;
+	
+	}
+	
+	
+	span.star-box {
+		width:100px;
+		margin-left: 20px;
+	}
+	
+	span.star-box, span.star-red {
+		display: inline-block;
+		
+		height: 20px;
+		overflow: hidden;
+		
+		background: url("${rootPath}/image/star.png") no-repeat;
+		
+		/* 배경이미지를 width:자동 height 40px */
+		background-size: 100px 40px;
+		
+	}
+	
+	span.star-red {
+		/* 배경이미지를 채울때 왼쪽 아래 꼭지점을 기준으로 배치하라 */
+		background-position: left bottom;
+		line-height: 0;
+		vertical-align: top;
+		width: 0;
 	}
 	
 	
@@ -200,9 +241,16 @@ $(function(){
 					placeholder="한줄평" />
 			</div>		
 			<div class="input-box">		
-			<form:input type="number" 
-					path="rb_star" 
+			<form:input type="range" 
+					path="rb_star" min="1" max="10"
 					placeholder="별점" />
+					
+			<span class="star-box">
+					<span class="star-red"></span>
+			</span>		
+			
+			<span id="star-v"></span>
+			
 			</div>		
 			<div class="input-box">		
 			<form:textarea path="rb_text"/>

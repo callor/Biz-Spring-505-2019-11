@@ -49,5 +49,10 @@ public class BookService {
 		List<BookVO> bookList = bookDao.findByBNames(names);
 		return bookList;
 	}
+
+	public BookVO findByBCode(String b_code) {
+		BookVO bookVO = bookDao.findByBCode(b_code);
+		return bookVO;
+	}
 	
 }

@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.biz.rbooks.domain.BookVO;
 import com.biz.rbooks.domain.ReadBookVO;
+import com.biz.rbooks.service.BookService;
 import com.biz.rbooks.service.ReadBookService;
 
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 public class ReadBookController {
 	
 	private final ReadBookService rBookService;
+	private final BookService bService;
 	
 	@RequestMapping(value="/list",method=RequestMethod.GET)
 	public String list(Model model) {
@@ -72,9 +75,31 @@ public class ReadBookController {
 		ReadBookVO rBookVO = rBookService.findBySeq(rb_seq);
 		model.addAttribute("RBOOK",rBookVO);
 		
+		String b_code = rBookVO.getRb_bcode();
+		BookVO bookVO = bService.findByBCode(b_code);
+		
+		model.addAttribute("BOOK",bookVO);
+		
 		return "rbooks/view";
 		
 	}
+
+	@RequestMapping(value="/update/{rb_seq}",method=RequestMethod.GET)
+	public String update(
+			@PathVariable("rb_seq") long rb_seq,Model model) {
+		
+		ReadBookVO rBookVO = rBookService.findBySeq(rb_seq);
+		model.addAttribute("rBookVO",rBookVO);
+		
+//		String b_code = rBookVO.getRb_bcode();
+//		BookVO bookVO = bService.findByBCode(b_code);
+//		
+//		model.addAttribute("BOOK",bookVO);
+		
+		return "rbooks/input";
+		
+	}
+
 	
 	
 	

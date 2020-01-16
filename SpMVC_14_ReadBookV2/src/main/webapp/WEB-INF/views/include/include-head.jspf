@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <title>나의 홈페이지</title>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<link href="${rootPath}/css/rbook-main.css?ver=2020-01-16-001"
+<link href="${rootPath}/css/rbook-main.css?ver=2020-01-16-002"
 		rel="stylesheet">
 		
 <link href="${rootPath}/css/main-table.css?ver=2020-01-16"
