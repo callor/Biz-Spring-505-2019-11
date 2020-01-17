@@ -7,6 +7,7 @@ import java.util.Random;
 import org.springframework.stereotype.Service;
 
 import com.biz.rbooks.domain.BookVO;
+import com.biz.rbooks.domain.ReadBookVO;
 import com.biz.rbooks.repository.BookDao;
 
 import lombok.RequiredArgsConstructor;
@@ -53,6 +54,12 @@ public class BookService {
 	public BookVO findByBCode(String b_code) {
 		BookVO bookVO = bookDao.findByBCode(b_code);
 		return bookVO;
+	}
+
+	public int update(ReadBookVO rBookVO) {
+
+		
+		return 0;
 	}
 	
 }

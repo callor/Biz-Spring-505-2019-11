@@ -32,5 +32,18 @@ public class ReadBookService {
 	public ReadBookVO findBySeq(long rb_seq) {
 		return rBookDao.findBySeq(rb_seq);
 	}
+
+	public int update(ReadBookVO rBookVO) {
+		int ret = rBookDao.update(rBookVO);
+		return ret;
+	}
+
+	public int delete(long rb_seq) {
+		return rBookDao.delete(rb_seq);
+	}
+
+	public List<ReadBookVO> findByBCode(String b_code) {
+		return rBookDao.findByBCode(b_code);
+	}
 	
 }
