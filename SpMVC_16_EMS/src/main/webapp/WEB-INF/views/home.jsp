@@ -8,11 +8,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>MY EMS</title>
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" type="text/css" 
-		href="${rootPath}/resources/css/main.css?ver=2020-01-20">
+		href="${rootPath}/static/css/main.css?ver=2020-01-20-001">
 <link rel="stylesheet" type="text/css" 
-		href="${rootPath}/resources/css/table-list.css?ver=2020-01-20">
-
+		href="${rootPath}/static/css/table-list.css?ver=2020-01-20">
 </head>
 <body>
 <%@ include file="/WEB-INF/views/include/include-header.jspf" %>
