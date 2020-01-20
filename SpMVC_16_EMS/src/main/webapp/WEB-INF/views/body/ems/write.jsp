@@ -27,15 +27,14 @@ $(function(){
 		width:'100%',
 		toolbar:toolbar,
 		height:'200px',
-		disableDragAndDrop : true
+		disableDragAndDrop : false
 	})
 	
 })
 
-
 </script>
 <fieldset class="email-write-box">
-<form:form modelAttribute="emailVO" enctype="multipart/form-data">
+<form:form modelAttribute="emailVO">
 	
 	<div class="in-box">
 		<label for="from_email">보내는 Email</label>
