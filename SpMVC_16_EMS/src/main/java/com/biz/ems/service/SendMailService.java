@@ -49,6 +49,8 @@ public class SendMailService {
 			
 			mHelper.setSubject(emailVO.getSubject());
 			
+			// setText() 2번째 옵션을 true 로 설정하면
+			// HTML tag를 반영하는 본문이 전송
 			mHelper.setText(emailVO.getContent(),true);
 			xMail.send(message);
 			
