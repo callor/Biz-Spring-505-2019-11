@@ -30,3 +30,12 @@
 		</c:otherwise>
 	</c:choose>
 </table>
+<div style="padding:10px 25px">
+	<button id="btn-email-send" 
+			onclick="location.href='${rootPath}/ems/input' ">
+		메일보내기
+	</button>
+</div>
+
+
+

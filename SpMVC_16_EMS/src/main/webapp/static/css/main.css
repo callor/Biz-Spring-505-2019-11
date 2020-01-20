@@ -40,24 +40,22 @@ nav {
 
 ul.main-menu {
     display: flex;
+    flex-flow:row;
+    flex-wrap:wrap;
     list-style: none;
     margin:0;
     padding: 0;
     color:inherit;
-  
 }
-
 
 ul.main-menu li {
     display: inline-block;
-
+    white-space:nowrap;
     padding:14px 16px;
     color:inherit;    
     transition:0.3s;
     cursor:pointer;
-    
     border-bottom:3px solid transparent;
-
 }
 ul.main-menu li:hover {
 	
