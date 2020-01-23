@@ -13,23 +13,31 @@
 	<bean id="configEnC" class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
 		<property name="config" ref="envConfig"/>
 	</bean>
-	<!-- 
-	properties를 여러개로 분리하여 설정하는 방법 
-		property에 locations를 설정하고
-		내부에 list를 설정한 후
-		value값으로 해당 파일들을 나열해 주면 된다.
-	-->
+	
 	<bean class="org.jasypt.spring31.properties.EncryptablePropertyPlaceholderConfigurer">
 		<constructor-arg ref="configEnC"/>
-		<property name="locations">
-			<list>
-				<value>/WEB-INF/spring/naver.email.secret.properties</value>
-				<value>/WEB-INF/spring/hibernate.secret.properties</value>
-			</list>
-		</property>
+		<property name="location" value="/WEB-INF/spring/naver.email.secret.properties"/>
 	</bean>
 	
+
+	<!-- mail을 보내기 위한 기본 설정수행 -->
+	<bean class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.naver.com"/>
+		<property name="port" value="465"/>
+		<property name="username" value="${naver.username}"/>
+		<property name="password" value="${naver.password}"/>
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.smtp.ssl.enable">true</prop>
+				<prop key="mail.smtp.ssl.trust">smtp.naver.com</prop>
+				<prop key="mail.debug">true</prop>
+			</props>
+		</property>
+		
+	</bean>
+
+
 </beans>
-
-
-
