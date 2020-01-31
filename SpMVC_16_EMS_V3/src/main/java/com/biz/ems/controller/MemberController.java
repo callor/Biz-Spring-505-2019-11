@@ -55,4 +55,17 @@ public class MemberController {
 		return "redirect:/ems/list";
 	
 	}
+
+	@RequestMapping(value="/logout",method=RequestMethod.GET)
+	public String logout(HttpSession httpSession) {
+		
+		httpSession.removeAttribute("MEMBER");
+		return "redirect:/ems/list";
+	
+	}
 }
+
+
+
+
+
