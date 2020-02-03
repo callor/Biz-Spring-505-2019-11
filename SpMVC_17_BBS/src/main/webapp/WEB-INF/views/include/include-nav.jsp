@@ -24,6 +24,7 @@
 		background-color: #ccc;
 		color:black;
 		position: relative;
+		text-decoration: none;
 	}
 	
 	
@@ -73,6 +74,7 @@
 		border-bottom: 1px solid white;
 		background-color: #ccc;
 		color:black;
+		text-decoration: none;
 	}
 	
 	
@@ -92,7 +94,7 @@
 					</c:when>
 					<c:otherwise>
 						<li class="dropdown">
-							<a class="dropbtn">${MENU.menu_title}</a>
+							<a class="dropbtn" href="javascript:void(0)">${MENU.menu_title}</a>
 							<div class="dropdown-content">
 								<c:forEach var="DROP" items="${MENU.drop_menus}">
 									<a href="${rootPath}/${DROP.menu_href}">

@@ -24,13 +24,37 @@
 	}
 
 </style>
+<script>
+$(function(){
+	
+	$("#btn-write").click(function(){
+		document.location.href='${rootPath}/bbs/write'
+	})
+})
+
+</script>
+
+
 </head>
 
 <header class="jumbotron text-center">
 	<h3>Build Board System</h3>
 </header>
-<%@ include file="/WEB-INF/views/include/include-nav.jsp" %>
+	<ul class="nav">
+		<li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+		<li class="nav-item jutify-content-end">
+				<a class="nav-link" href="/member/login">로그인</a>
+		</li>
+		<li class="nav-item"><a class="nav-link" href="/member/join">회원가입</a></li>
+	</ul>
 <body class="container-fluid">
+
+<div class="input-group">
+	<div class="input-group-btn">
+		<button class="btn btn-default" id="btn-write" type="button">게시판작성</button>
+	</div>
+</div>
+
 </body>
 </html>
 
