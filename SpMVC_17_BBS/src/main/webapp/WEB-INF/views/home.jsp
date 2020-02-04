@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="rootPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,8 +29,9 @@
 $(function(){
 	
 	$("#btn-write").click(function(){
-		document.location.href='${rootPath}/bbs/write'
+		document.location.href='${rootPath}/bbs/input'
 	})
+	
 })
 
 </script>
@@ -41,19 +43,31 @@ $(function(){
 	<h3>Build Board System</h3>
 </header>
 	<ul class="nav">
-		<li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+		<li class="nav-item"><a class="nav-link" href="${rootPath}/">Home</a></li>
 		<li class="nav-item jutify-content-end">
-				<a class="nav-link" href="/member/login">로그인</a>
+			<a class="nav-link" href="${rootPath}/member/login">로그인</a>
 		</li>
-		<li class="nav-item"><a class="nav-link" href="/member/join">회원가입</a></li>
+		<li class="nav-item">
+			<a class="nav-link" href="${rootPath}/member/join">회원가입</a></li>
 	</ul>
 <body class="container-fluid">
-
-<div class="input-group">
-	<div class="input-group-btn">
-		<button class="btn btn-default" id="btn-write" type="button">게시판작성</button>
-	</div>
-</div>
+<section>
+	<c:choose>
+		<c:when test="${BODY == 'BBS_INPUT'}">
+			<%@ include file="/WEB-INF/views/include/bbs_input.jsp" %>
+		</c:when>
+		<c:otherwise>
+			<%@ include file="/WEB-INF/views/include/bbs_list.jsp" %>
+			<div class="input-group">
+				<div class="input-group-btn">
+					<button class="btn btn-primary" 
+							id="btn-write" 
+							type="button">게시판작성</button>
+				</div>
+			</div>
+		</c:otherwise>
+	</c:choose>
+</section>
 
 </body>
 </html>

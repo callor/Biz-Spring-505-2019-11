@@ -24,6 +24,5 @@ public interface MenuDao {
 	
 	@Select("SELECT * FROM tbl_menu WHERE menu_p_id = #{menu_id}")
 	public List<MenuVO> getSubMenu(String menu_id);
-	
 
 }

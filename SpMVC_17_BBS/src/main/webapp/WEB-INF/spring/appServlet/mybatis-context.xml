@@ -41,6 +41,7 @@
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="mysqlDS"/>
 	</bean>
+	
 	<mybatis-spring:scan base-package="com.biz.bbs.mapper"/>
 
 </beans>

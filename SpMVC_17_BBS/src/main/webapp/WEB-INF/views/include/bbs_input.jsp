@@ -3,7 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
-<form:form>
+<form:form action="${rootPath}/bbs/save" modelAttribute="bbsVO">
+
 	<div class="input-group">
 		<form:input class="form-control" 
 			path="bbs_date" placeholder="날짜"/>
@@ -24,6 +25,9 @@
 			path="bbs_subject" placeholder="제목"/>
 	</div>
 
-
+	<div class="input-group">
+		<form:textarea class="form-control" 
+			path="bbs_content" placeholder="제목"/>
+	</div>
 
 </form:form>
