@@ -11,6 +11,10 @@ public interface BbsDao {
 
 	@Select("SELECT * FROM tbl_bbs ORDER BY bbs_date DESC, bbs_time DESC")
 	public List<BBsVO> selectAll();
+	
+	public List<BBsVO> selectMain();
+	
+	
 	public void update(BBsVO bbsVO);
 	public void insert(BBsVO bbsVO);
 	

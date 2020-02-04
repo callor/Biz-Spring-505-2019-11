@@ -5,6 +5,23 @@
   
  <mapper namespace="com.biz.bbs.mapper.BbsDao">
  
+ 
+ 	<select id="selectMain" resultMap="bbsReplay">
+ 		SELECT * FROM tbl_bbs WHERE bbs_p_id IS NULL
+ 	</select>
+ 	
+ 	<resultMap type="bbsVO" id="bbsReplay">
+ 		<id column="bbs_id" property="bbs_id" />
+ 		<result column="bbs_id" property="bbs_id"/>
+ 		<collection property="bbs_replay" column="bbs_id"
+ 			ofType="bbsVO" select="selectSub"/>
+ 	</resultMap>
+ 	
+ 	<select id="selectSub" resultType="bbsVO">
+ 		SELECT * FROM tbl_bbs WHERE bbs_p_id = #{bbs_id}
+ 	</select>
+
+ 
  	<insert id="insert">
  	INSERT INTO `tbl_bbs`
 			(`BBS_ID`,

@@ -13,10 +13,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.biz.bbs.domain.BBsVO;
 import com.biz.bbs.service.BBsService;
 
+@SessionAttributes("bbsVO")
 @RequestMapping(value="/bbs")
 @Controller
 public class BBsController {
@@ -27,6 +29,11 @@ public class BBsController {
 	public BBsController(@Qualifier("bServcieV1") BBsService bService) {
 		super();
 		this.bService = bService;
+	}
+	
+	@ModelAttribute("bbsVO")
+	public BBsVO makeBBsVO() {
+		return new BBsVO();
 	}
 	
 	@RequestMapping(value="/list",method=RequestMethod.GET)
@@ -60,7 +67,7 @@ public class BBsController {
 	}
 	
 	@RequestMapping(value="/save",method=RequestMethod.POST)
-	public String save(@ModelAttribute BBsVO bbsVO) {
+	public String save(@ModelAttribute("bbsVO") BBsVO bbsVO) {
 		
 		bService.save(bbsVO);
 		return "redirect:/bbs/list";
@@ -69,7 +76,7 @@ public class BBsController {
 	
 	
 	@RequestMapping(value="/view",method=RequestMethod.GET)
-	public String view(@ModelAttribute BBsVO bbsVO, Model model) {
+	public String view(@ModelAttribute("bbsVO") BBsVO bbsVO, Model model) {
 		
 		bbsVO = bService.findById(bbsVO.getBbs_id());
 		
@@ -79,6 +86,13 @@ public class BBsController {
 		
 	}
 	
+	@RequestMapping(value="/replay",method=RequestMethod.POST)
+	public String replay(@ModelAttribute("bbsVO") BBsVO bbsVO) {
+
+		bbsVO = bService.replay(bbsVO);
+		return "redirect:/bbs/list";
+		
+	}
 	
 	
 	

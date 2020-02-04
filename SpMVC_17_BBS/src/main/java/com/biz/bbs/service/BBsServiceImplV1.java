@@ -24,7 +24,8 @@ public class BBsServiceImplV1 implements BBsService {
 	@Override
 	public List<BBsVO> selectAll() {
 		// TODO Auto-generated method stub
-		return bbsDao.selectAll();
+		// return bbsDao.selectAll();
+		return bbsDao.selectMain();
 	}
 
 	@Override
@@ -69,4 +70,16 @@ public class BBsServiceImplV1 implements BBsService {
 		return 0;
 	}
 
+	@Override
+	public BBsVO replay(BBsVO bbsVO) {
+
+		bbsVO.setBbs_p_id(bbsVO.getBbs_id());
+		bbsVO.setBbs_id(0);
+		String subject = "re : " + bbsVO.getBbs_subject();
+		bbsVO.setBbs_subject(subject);
+		bbsDao.insert(bbsVO);
+		
+		return null;
+	
+	}
 }

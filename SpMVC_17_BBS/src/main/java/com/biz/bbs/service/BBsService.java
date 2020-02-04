@@ -25,5 +25,7 @@ public interface BBsService {
 	public int save(BBsVO bbsVO);
 
 	public int delete(long bbs_id);
+
+	public BBsVO replay(BBsVO bbsVO);
 	
 }

@@ -41,6 +41,10 @@ $(function(){
 						<td>${BBS.bbs_time}</td>
 						<td>${BBS.bbs_subject}</td>
 					</tr>
+					<c:if test="${not empty BBS.bbs_replay}">
+						<c:set var="BBS_SUB" value="${BBS.bbs_replay}"/>
+						<%@ include file="/WEB-INF/views/include/bbs_replay.jsp" %>
+					</c:if>
 				</c:forEach>
 			</c:otherwise>
 		</c:choose>
