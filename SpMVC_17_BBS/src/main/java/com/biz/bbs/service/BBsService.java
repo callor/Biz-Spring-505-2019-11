@@ -2,11 +2,14 @@ package com.biz.bbs.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Select;
+
 import com.biz.bbs.domain.BBsVO;
 
 public interface BBsService {
 	
 	public List<BBsVO> selectAll();
+
 	public BBsVO findById(long bbs_id);
 	
 	// 제목으로 검색하기

@@ -56,6 +56,10 @@ $(function(){
 		<c:when test="${BODY == 'BBS_INPUT'}">
 			<%@ include file="/WEB-INF/views/include/bbs_input.jsp" %>
 		</c:when>
+		<c:when test="${BODY == 'BBS_VIEW'}">
+			<%@ include file="/WEB-INF/views/include/bbs_view.jsp" %>
+		</c:when>
+
 		<c:otherwise>
 			<%@ include file="/WEB-INF/views/include/bbs_list.jsp" %>
 			<div class="input-group">

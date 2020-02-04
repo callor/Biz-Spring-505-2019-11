@@ -1,12 +1,16 @@
 package com.biz.bbs.controller;
 
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -29,7 +33,7 @@ public class BBsController {
 	public String selectAll(Model model) {
 		
 		List<BBsVO> bbsList = bService.selectAll();
-		model.addAttribute("LIST",bbsList);
+		model.addAttribute("BBS_LIST",bbsList);
 		model.addAttribute("BODY","BBS_LIST");
 		
 		return "home";
@@ -38,11 +42,41 @@ public class BBsController {
 	
 	@RequestMapping(value="/input",method=RequestMethod.GET)
 	public String input(Model model) {
+
+		// java 1.8 이상의 새로운 날짜 시간 클래스
+		LocalDate ld = LocalDate.now();
+		LocalTime lt = LocalTime.now();
+		DateTimeFormatter dt = DateTimeFormatter.ofPattern("HH:mm:ss");
 		
-		BBsVO bbsVO = new BBsVO();
+		BBsVO bbsVO = BBsVO.builder()
+						.bbs_date(ld.toString())
+						.bbs_time(lt.format(dt))
+						.build();
+		
 		model.addAttribute("bbsVO",bbsVO);
 		model.addAttribute("BODY","BBS_INPUT");
 		return "home";
+		
+	}
+	
+	@RequestMapping(value="/save",method=RequestMethod.POST)
+	public String save(@ModelAttribute BBsVO bbsVO) {
+		
+		bService.save(bbsVO);
+		return "redirect:/bbs/list";
+	
+	}
+	
+	
+	@RequestMapping(value="/view",method=RequestMethod.GET)
+	public String view(@ModelAttribute BBsVO bbsVO, Model model) {
+		
+		bbsVO = bService.findById(bbsVO.getBbs_id());
+		
+		model.addAttribute("bbsVO",bbsVO);
+		model.addAttribute("BODY","BBS_VIEW");
+		return "home";
+		
 	}
 	
 	
