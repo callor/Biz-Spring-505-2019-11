@@ -25,7 +25,7 @@
 	<bean class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="mysqlDS" />
 		<property name="typeAliasesPackage"
-			value="com.biz.bbs.domain" />
+			value="com.biz.crawl.domain" />
 		<property name="mapperLocations"
 			value="/WEB-INF/spring/mapper/*-mapper.xml" />
 		<property name="configuration">
@@ -46,6 +46,6 @@
 	</bean>
 
 	<mybatis-spring:scan
-		base-package="com.biz.bbs.mapper" />
+		base-package="com.biz.crawl.persistance" />
 
 </beans>
