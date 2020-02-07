@@ -5,6 +5,11 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/task https://www.springframework.org/schema/task/spring-task-4.3.xsd">
 
-	<task:annotation-driven/>
+	<!-- 
+	스케쥴링을 수행하기 위한 bean 설정
+	아래 tag만 작성하면
+	모든게 자동으로 완성
+	 -->
+	<task:annotation-driven />
 
 </beans>

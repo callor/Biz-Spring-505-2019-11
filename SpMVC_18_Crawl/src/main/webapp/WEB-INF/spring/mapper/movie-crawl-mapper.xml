@@ -6,18 +6,35 @@
  
  	<insert id="insert">
  	INSERT INTO `tbl_movie`
-				(`id`,
-				`m_rank`,
+				(`m_rank`,
 				`m_title`,
 				`m_detail_url`,
 				`m_image_url`)
 			VALUES
-				(#{id},
-				#{m_rank},
+				(#{m_rank},
 				#{m_title},
 				#{m_detail_url},
 				#{m_image_url}
 			);
  	</insert>
+ 	
+ 	<insert id="insertAll">
+ 		 INSERT INTO `tbl_movie`
+				(
+				`m_rank`,
+				`m_title`,
+				`m_detail_url`,
+				`m_image_url`)
+			VALUES
+			<foreach collection="list" item="vo" separator=" , ">
+				(#{vo.m_rank},
+					#{vo.m_title},
+					#{vo.m_detail_url},
+					#{vo.m_image_url}
+				)
+			</foreach>
+ 	</insert>
+ 	
+ 	
  
  </mapper> 
