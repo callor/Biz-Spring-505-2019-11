@@ -4,6 +4,13 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="com.biz.crawl.persistance.NaverDao">
  
+ 	<select id="search">
+ 		SELECT * FROM tbl_movie 
+ 		WHERE m_title LIKE CONCAT('%', #{search},'%' )
+ 	
+ 	</select>
+ 
+ 
  	<insert id="insert">
  	INSERT INTO `tbl_movie`
 				(`m_rank`,
