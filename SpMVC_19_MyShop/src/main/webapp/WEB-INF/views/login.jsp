@@ -170,10 +170,22 @@ $(function(){
 		<c:if test="${LOGIN_MSG == '0' }">		
 			<h3>로그인을 환영합니다.</h3>
 		</c:if>
+		<!-- spring form tag를 사용하면 생략가능 -->
+		
+		<input type="hidden" 
+				name="${_csrf.parameterName}" 
+				value="${_csrf.token}">
+				
 		<input type="text" id="username" name="username" placeholder="사용자 ID">
 		<input type="password" id="password" name="password" placeholder="비밀번호">
 		<button type="submit" id="btn-login">로그인</button>
 		<button type="button" id="btn-join">회원가입</button>
 		
 	</form:form>
+	
+	
+
+	
+	
+	
 	

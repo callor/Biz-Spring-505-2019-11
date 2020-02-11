@@ -13,17 +13,24 @@
 <security:authentication-manager>
 	<security:authentication-provider>
 		<security:user-service>
-
-			<security:user name="admin"
+			<security:user name="admin11"
 					password="{noop}password" 
 					authorities="ROLE_ADMIN"/>
-
-			<security:user name="user"
+			<security:user name="user11"
 					password="{noop}password" 
 					authorities="ROLE_USER"/>
-
 		</security:user-service>
-	
+	</security:authentication-provider>
+</security:authentication-manager>
+
+<!-- DB에서 사용자 정보 불러오기 -->
+<security:authentication-manager>
+	<security:authentication-provider>
+			<security:jdbc-user-service 
+					data-source-ref="emsHiber"
+					users-by-username-query="SELECT username, password, enabled FROM users WHERE username=?"
+					authorities-by-username-query="SELECT username, authority FROM authorities WHERE username=?" 
+			/>
 	</security:authentication-provider>
 </security:authentication-manager>
 
@@ -33,7 +40,6 @@ spring security를 통해서 접근할 url(path)를 설정
 
 use-expressions
 hasRole('역할') 과 같은 표현식을 사용할수 있도록 선언
-
 -->
 <security:http auto-config="true" use-expressions="true">
 	
