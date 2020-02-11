@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="rootPath" value="${pageContext.request.contextPath}" />    
+<%@ taglib uri="http://www.springframework.org/tags/form"  prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <style>
 * {
 	margin:0;
@@ -154,7 +156,7 @@ $(function(){
 	})
 })
 </script>
-	<form method="POST" action="${rootPath}/login" class="login-form">
+	<form:form method="POST" action="${rootPath}/login" class="login-form">
 		<h2>로그인</h2>
 		<c:if test="${param.error != null}">		
 			<h3>아이디나 비번이 잘못되었습니다.</h3>
@@ -168,19 +170,10 @@ $(function(){
 		<c:if test="${LOGIN_MSG == '0' }">		
 			<h3>로그인을 환영합니다.</h3>
 		</c:if>
-		<input type="hidden" 
-				name="${_csrf.parameterName}" 
-				value="${_csrf.token}">
-		<input type="text" id="id" name="id" placeholder="사용자 ID">
+		<input type="text" id="username" name="username" placeholder="사용자 ID">
 		<input type="password" id="password" name="password" placeholder="비밀번호">
 		<button type="submit" id="btn-login">로그인</button>
 		<button type="button" id="btn-join">회원가입</button>
 		
-	</form>
-	
-	
-
-	
-	
-	
+	</form:form>
 	

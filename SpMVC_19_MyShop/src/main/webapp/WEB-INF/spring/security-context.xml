@@ -33,14 +33,16 @@ spring security를 통해서 접근할 url(path)를 설정
 
 use-expressions
 hasRole('역할') 과 같은 표현식을 사용할수 있도록 선언
+
 -->
 <security:http auto-config="true" use-expressions="true">
-
+	
+	<security:csrf disabled="false"/>
 	<security:intercept-url pattern="/admin/**" 
 				access="hasRole('ADMIN')"/>
 
 	<security:intercept-url pattern="/auth/**" 
-				access="hasAnyRole('USER,ADMIN')"/>
+				access="permitAll()"/>
 
 	<security:intercept-url pattern="/**" 
 				access="permitAll"/>
@@ -49,12 +51,16 @@ hasRole('역할') 과 같은 표현식을 사용할수 있도록 선언
 	정상적으로 로그인이 되면 / 로 redirect
 	로그인이 실패하면 /login path error 변수를 하나 부착하여
 	다시 login으로 보내라
+	login-page="/auth/login"
 	 -->
 	<security:form-login 
-			login-page="/login"
+			login-page="/auth/login"
+			
+			login-processing-url="/login"
+			authentication-failure-url="/auth/login?error"
+			
 			default-target-url="/"
-			authentication-failure-url="/login?error"
-			username-parameter="id"
+			username-parameter="username"
 			password-parameter="password"
 			/>
 			
