@@ -63,6 +63,14 @@ data-source-ref="emsHiber"
 	</security:authentication-provider>
 </security:authentication-manager>
 
+
+<bean class="com.biz.shop.provider.CustomAuthProvider" 
+		id="customAuth"/>
+<security:authentication-manager>
+	<security:authentication-provider ref="customAuth"/>
+</security:authentication-manager>		
+
+
 <!-- 
 intercept-url 
 spring security를 통해서 접근할 url(path)를 설정
