@@ -41,6 +41,7 @@ public class CustomAuthProvider implements AuthenticationProvider{
 		cUserDetails.setNick_name("홍길동");
 		cUserDetails.setTel("010-111-1111");
 		cUserDetails.setAddr("서울특별시");
+		
 
 		UsernamePasswordAuthenticationToken
 			token 

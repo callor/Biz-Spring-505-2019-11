@@ -14,9 +14,15 @@ import lombok.ToString;
 @ToString
 public class CustomUserDetails implements UserDetails{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String nick_name;
 	private String tel;
 	private String addr;
+	
+
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
