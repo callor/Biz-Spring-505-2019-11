@@ -9,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.biz.shop.domain.CustomUserDetails;
 
@@ -37,10 +38,10 @@ public class CustomAuthProvider implements AuthenticationProvider{
 		 * 해당 정보를 DB에서 조회하여 
 		 * CustomUserDetails 클래스에 세팅하여 controller로 전송할수 있다
 		 */
-		CustomUserDetails cUserDetails = new CustomUserDetails();
-		cUserDetails.setNick_name("홍길동");
-		cUserDetails.setTel("010-111-1111");
-		cUserDetails.setAddr("서울특별시");
+		UserDetails cUserDetails = new CustomUserDetails();
+		// cUserDetails.setNick_name("홍길동");
+		// cUserDetails.setTel("010-111-1111");
+		// cUserDetails.setAddr("서울특별시");
 		
 
 		UsernamePasswordAuthenticationToken

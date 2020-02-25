@@ -2,15 +2,13 @@ package com.biz.shop.controller;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.biz.shop.domain.CustomUserDetails;
 import com.biz.shop.domain.Users;
-import com.biz.shop.repository.AuthDao;
-import com.biz.shop.repository.UserDao;
 import com.biz.shop.service.AuthService;
 
 import lombok.RequiredArgsConstructor;
@@ -44,10 +42,10 @@ public class AuthController {
 	
 	@ResponseBody
 	@RequestMapping(value="/login_ok",method=RequestMethod.GET)
-	public Authentication login_ok() {
+	public UserDetails login_ok() {
 		
-		CustomUserDetails cUserDetails 
-			= (CustomUserDetails) SecurityContextHolder.getContext()
+		UserDetails cUserDetails 
+			= (UserDetails) SecurityContextHolder.getContext()
 				.getAuthentication()
 				.getDetails();
 		
@@ -57,7 +55,7 @@ public class AuthController {
 				.getAuthentication();
 		
 		
-		return auth ;
+		return cUserDetails ;
 	}
 	
 	@RequestMapping(value="/auth/test",method=RequestMethod.GET)
